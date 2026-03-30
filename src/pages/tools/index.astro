@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import ToolSection from '@components/tools/ToolSection.astro';
+import Layout from '@layouts/Layout.astro';
+import { groupToolsByType } from '@utils/tools';
+
+const grouped = groupToolsByType(await getCollection('tools'));
+---
+
+<Layout
+  title="Tools và LLM Lab"
+  description="Quiz chọn gói phù hợp và các lab mô phỏng giúp hiểu LLM dễ hơn."
+  canonical="/tools"
+>
+  <section class="container py-16">
+    <div class="max-w-4xl">
+      <p class="text-sm font-semibold uppercase tracking-[0.14em] text-cyan-700">Tools</p>
+      <h1 class="mt-3 text-4xl font-black tracking-tight text-slate-950">Công cụ và LLM Lab</h1>
+      <p class="mt-4 text-lg leading-8 text-slate-600">
+        Một nơi để vừa chọn đúng gói AI, vừa hiểu các khái niệm LLM quan trọng bằng mô phỏng trực quan.
+      </p>
+    </div>
+
+    <div class="mt-12 space-y-16">
+      <ToolSection
+        title="Công cụ thực dụng"
+        description="Các tool ngắn, tập trung vào quyết định mua đúng gói theo nhu cầu thật."
+        tools={grouped.practical}
+      />
+
+      <ToolSection
+        title="LLM Lab"
+        description="Các walkthrough 10-15 phút để hiểu token, tool use, reasoning và coding-agent workflow."
+        tools={grouped.labs}
+      />
+    </div>
+  </section>
+</Layout>
