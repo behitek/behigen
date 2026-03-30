@@ -1,8 +1,11 @@
-# LLM Lab Tools Pivot Design
+# Tools Section Pivot Design
 
 ## Goal
 
-Replace the current `/tools` package-selection concept with a Vietnamese-first educational LLM lab that helps complete beginners and developers evaluating LLMs build correct mental models through guided simulations.
+Replace the current `/tools` placeholder package-selection concept with a real two-track tools section:
+
+- one practical package chooser for product guidance
+- one Vietnamese-first educational LLM lab for guided simulations
 
 ## Why This Change
 
@@ -13,7 +16,10 @@ The current `/tools` section is structurally present but product-thin:
 - the recommendation logic is minimal and hard-coded
 - the content framing overlaps awkwardly with `/store`
 
-That creates a credibility problem. A full pivot gives `/tools` one clear purpose and makes the section worth promoting in navigation and on the homepage.
+That creates a credibility problem. The section should earn its place in navigation by doing two specific jobs well:
+
+- helping users choose the right product quickly
+- helping users understand how LLM systems and coding agents work
 
 ## Audience
 
@@ -31,15 +37,20 @@ Audience needs:
 
 ## Product Positioning
 
-`/tools` becomes an educational section named and framed as an LLM lab.
+`/tools` becomes a broader tools surface with two explicit tracks.
 
-Core promise:
+Track 1: `Công cụ thực dụng`
+
+- help users choose the right account or plan with minimal friction
+- connect the recommendation flow directly to the store
+
+Track 2: `LLM Lab`
 
 - understand how modern LLM systems behave
 - compare concepts using familiar products and agent workflows
 - learn through interactive, guided visual explanations
 
-This section should no longer promise AI package selection or shopping assistance. Store recommendation content remains in `/store`, where it already belongs.
+This keeps `/tools` coherent without forcing shopping help and educational simulations into the same unlabeled bucket.
 
 ## Information Architecture
 
@@ -48,15 +59,27 @@ Keep the existing route structure:
 - `/tools`
 - `/tools/[slug]`
 
-Repurpose the content collection so each entry represents a guided educational lab instead of a shopping helper.
+Repurpose the content collection so it can represent both practical tools and educational labs.
 
-The three launch labs are:
+The launch tools are:
+
+1. `ai-package-quiz`
+2. `token-hoat-dong-nhu-the-nao`
+3. `llm-xu-ly-input-output-tool-va-thinking-ra-sao`
+4. `coding-agent-tim-dung-skill-nhu-the-nao`
+
+The three educational labs are:
 
 1. `token-hoat-dong-nhu-the-nao`
 2. `llm-xu-ly-input-output-tool-va-thinking-ra-sao`
 3. `coding-agent-tim-dung-skill-nhu-the-nao`
 
-The `/tools` index should introduce the section as a learning surface and list the three labs with:
+The `/tools` index should present two labeled sections:
+
+- `Công cụ thực dụng`
+- `LLM Lab`
+
+Each card should show:
 
 - title
 - concise description
@@ -64,11 +87,56 @@ The `/tools` index should introduce the section as a learning surface and list t
 - level
 - learning outcomes
 
-The detail route should render a guided simulation page for the selected lab.
+The detail route should render either:
+
+- a short, result-focused chooser flow for `ai-package-quiz`
+- a guided simulation page for the educational labs
+
+## Practical Tool: AI Package Quiz
+
+Purpose:
+
+- help users choose between Google-oriented packages and ChatGPT / coding-agent packages
+- narrow that choice into one exact product recommendation
+- convert uncertainty into a direct store click
+
+User framing:
+
+- use `ChatGPT / coding agent` as the beginner-friendly category label
+- mention `Codex` inside the explanation where it helps technical users orient themselves
+
+Flow:
+
+1. ask whether the user mainly needs storage and workspace benefits or coding-agent and AI chat help
+2. ask whether they need to share with family members or manage a family plan
+3. ask whether they need owner control or can join as a member when the Google path is selected
+4. ask budget sensitivity only when it is needed to break a tie
+5. return one exact product recommendation with explanation and CTA
+
+Decision intent:
+
+- storage, Drive, Photos, or family-management needs should push toward Google products
+- coding-agent or chat-first needs without storage should push toward ChatGPT / coding-agent products
+- owner-control needs should route to owner variants
+- flexible member/share needs should route to member or shared variants when relevant
+
+Result format:
+
+- one primary recommendation
+- 2 to 3 short sentences explaining the fit
+- one short note explaining why the other path was not chosen
+- direct CTA to the recommended product page
+
+Interaction style:
+
+- faster and narrower than the educational labs
+- a small number of questions
+- no long narrative progression
+- optimized for conversion rather than exploration
 
 ## Shared UX Model
 
-All three labs should share one interaction shell so the section feels coherent and the implementation stays bounded.
+The three educational labs should share one interaction shell so the section feels coherent and the implementation stays bounded.
 
 Shared layout:
 
@@ -199,7 +267,7 @@ Important constraint:
 
 ## Content Model
 
-Update the tools collection metadata so each lab can define:
+Update the tools collection metadata so each tool can define:
 
 - `slug`
 - `title`
@@ -208,9 +276,10 @@ Update the tools collection metadata so each lab can define:
 - `level`
 - `learningOutcomes`
 - `stepCount`
+- `toolType`
 - optional related blog references
 
-The lab-specific simulation states and presets should live in structured local data or helper modules rather than being hard-coded inline across route files.
+The practical quiz and each educational lab should keep their decision logic, simulation states, and presets in structured local data or helper modules rather than being hard-coded inline across route files.
 
 ## Component Boundaries
 
@@ -219,6 +288,7 @@ The implementation should separate section shell, lab content, and simulation lo
 Recommended boundaries:
 
 - a shared lab shell component for layout and navigation
+- a dedicated quiz component for `ai-package-quiz`
 - one visualization component per lab
 - local helper modules that derive labels, stage states, and summaries from the current controls
 - route files that stay thin and mostly map content entries to the right lab component
@@ -230,10 +300,10 @@ This keeps the simulations understandable and testable without turning `src/page
 Static data flow:
 
 1. the route loads lab metadata from the tools collection
-2. the route selects the correct simulation component for the slug
-3. the simulation component manages local interactive state
-4. helper functions derive the active explanation, highlighted path, metrics, and summaries
-5. the UI renders a visual stage and explanation panel from those derived values
+2. the route selects the correct tool component for the slug
+3. the selected component manages local interactive state
+4. helper functions derive the active explanation, highlighted path, metrics, decision result, and summaries
+5. the UI renders either a result-focused chooser or a visual simulation experience from those derived values
 
 No backend, persistence, or external API is required for the first release.
 
@@ -273,17 +343,17 @@ Tone:
 
 ## Migration Scope
 
-This should ship as a full pivot, not a mixed state.
+This should ship as a full pivot, but the final state is intentionally a mixed tools surface with two clearly separated tracks.
 
 Required migration actions:
 
-- rewrite `/tools` index copy around the LLM lab concept
-- replace the existing tool entries with the three educational labs
-- remove package-selection framing from tool detail pages
-- remove store-oriented tool relationships that only made sense for shopping helpers
-- align homepage tools promotion with the new educational positioning
+- rewrite `/tools` index copy around the two-track model
+- replace the current placeholder `ai-package-quiz` with a real chooser
+- replace the other placeholder tools with the three educational labs
+- remove fake or thin recommendation framing from non-quiz tool pages
+- align homepage tools promotion with both practical and educational positioning
 
-Avoid carrying forward the existing package-selector logic inside the new section.
+Avoid an unlabeled mixed grid. The practical tool and educational labs need explicit grouping on the index page.
 
 ## Error Handling And Edge Cases
 
@@ -317,7 +387,8 @@ The first release does not require end-to-end automation for every visual transi
 
 The pivot succeeds if:
 
-- `/tools` has one clear educational purpose
+- `/tools` clearly separates practical guidance from educational simulations
+- `ai-package-quiz` produces one real product recommendation
 - each lab supports a 10 to 15 minute guided walkthrough
 - beginners can understand the core idea without prior prompt-engineering knowledge
 - developers evaluating LLM tools can use the labs to compare system behavior concepts
@@ -329,7 +400,7 @@ The pivot succeeds if:
 - exact vendor-internal behavior claims
 - user accounts or saved progress
 - analytics dashboards
-- commerce recommendation logic inside the new lab section
+- multi-product ranked recommendation lists for the first quiz release
 
 ## Verification
 
