@@ -1,6 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import AiPackageQuiz from '@components/tools/AiPackageQuiz.astro';
+import PipelineLab from '@components/tools/PipelineLab.astro';
+import SkillFinderLab from '@components/tools/SkillFinderLab.astro';
+import TokenLab from '@components/tools/TokenLab.astro';
 import Layout from '@layouts/Layout.astro';
 
 export async function getStaticPaths() {
@@ -17,13 +20,11 @@ const { tool } = Astro.props;
 <Layout title={tool.title} description={tool.description} canonical={`/tools/${tool.slug}`}>
   {tool.slug === 'ai-package-quiz' ? (
     <AiPackageQuiz tool={tool} />
+  ) : tool.slug === 'token-hoat-dong-nhu-the-nao' ? (
+    <TokenLab tool={tool} />
+  ) : tool.slug === 'llm-xu-ly-input-output-tool-va-thinking-ra-sao' ? (
+    <PipelineLab tool={tool} />
   ) : (
-    <section class="container py-16">
-      <div class="max-w-4xl">
-        <p class="text-sm font-semibold uppercase tracking-[0.14em] text-cyan-700">LLM Lab</p>
-        <h1 class="mt-3 text-4xl font-black tracking-tight text-slate-950">{tool.title}</h1>
-        <p class="mt-4 text-lg leading-8 text-slate-600">{tool.description}</p>
-      </div>
-    </section>
+    <SkillFinderLab tool={tool} />
   )}
 </Layout>

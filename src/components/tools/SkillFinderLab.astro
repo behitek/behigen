@@ -1,0 +1,101 @@
+---
+import LabShell from '@components/tools/LabShell.astro';
+
+interface Props {
+  tool: {
+    title: string;
+    description: string;
+    estimatedMinutes: number;
+  };
+}
+
+const { tool } = Astro.props;
+---
+
+<LabShell
+  title={tool.title}
+  description={tool.description}
+  estimatedMinutes={tool.estimatedMinutes}
+  stepLabels={['Chọn task', 'Bật tín hiệu repo', 'Theo dõi workflow', 'So sánh input yếu và mạnh', 'Rút kinh nghiệm', 'Gợi ý áp dụng']}
+>
+  <div data-skill-lab class="rounded-[2rem] border border-slate-200 bg-white p-6">
+    <div class="grid gap-6 lg:grid-cols-[0.42fr_0.58fr]">
+      <div class="space-y-4">
+        <label class="block text-sm font-semibold text-slate-900" for="skill-task-type">Loại task</label>
+        <select id="skill-task-type" class="w-full rounded-2xl border border-slate-300 px-4 py-3">
+          <option value="quick-edit">Quick edit</option>
+          <option value="bug-fix">Bug fix</option>
+          <option value="new-feature">New feature</option>
+          <option value="review">Review</option>
+        </select>
+        <label class="flex items-center gap-3 text-sm text-slate-700">
+          <input type="checkbox" id="skill-has-instructions" checked />
+          Có repo instructions
+        </label>
+        <label class="flex items-center gap-3 text-sm text-slate-700">
+          <input type="checkbox" id="skill-is-ambiguous" />
+          Yêu cầu còn mơ hồ
+        </label>
+        <label class="flex items-center gap-3 text-sm text-slate-700">
+          <input type="checkbox" id="skill-is-visual" />
+          Có yếu tố UI hoặc design
+        </label>
+      </div>
+      <div class="space-y-4">
+        <div class="rounded-2xl bg-slate-50 p-4">
+          <p class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Workflow</p>
+          <p class="mt-3 text-lg font-bold text-slate-950" data-skill-workflow></p>
+          <p class="mt-2 text-sm text-slate-600" data-skill-reason></p>
+        </div>
+        <p class="rounded-2xl bg-slate-50 p-4 text-sm text-slate-700" data-skill-tip></p>
+      </div>
+    </div>
+  </div>
+</LabShell>
+
+<script type="module">
+  import { buildSkillFinderState } from '../../utils/skillFinderLab';
+
+  const root = document.querySelector('[data-skill-lab]');
+
+  if (root instanceof HTMLElement) {
+    const taskType = root.querySelector('#skill-task-type');
+    const hasInstructions = root.querySelector('#skill-has-instructions');
+    const isAmbiguous = root.querySelector('#skill-is-ambiguous');
+    const isVisual = root.querySelector('#skill-is-visual');
+    const workflow = root.querySelector('[data-skill-workflow]');
+    const reason = root.querySelector('[data-skill-reason]');
+    const tip = root.querySelector('[data-skill-tip]');
+
+    if (
+      taskType instanceof HTMLSelectElement &&
+      hasInstructions instanceof HTMLInputElement &&
+      isAmbiguous instanceof HTMLInputElement &&
+      isVisual instanceof HTMLInputElement &&
+      workflow instanceof HTMLElement &&
+      reason instanceof HTMLElement &&
+      tip instanceof HTMLElement
+    ) {
+      const render = () => {
+        const state = buildSkillFinderState({
+          taskType: taskType.value as 'quick-edit' | 'bug-fix' | 'new-feature' | 'review' | 'refactor',
+          hasInstructions: hasInstructions.checked,
+          hasTests: true,
+          isAmbiguous: isAmbiguous.checked,
+          isRisky: isAmbiguous.checked,
+          isVisual: isVisual.checked
+        });
+
+        workflow.textContent = state.workflow;
+        reason.textContent = state.reason;
+        tip.textContent = state.improvementTip;
+      };
+
+      taskType.addEventListener('change', render);
+      hasInstructions.addEventListener('change', render);
+      isAmbiguous.addEventListener('change', render);
+      isVisual.addEventListener('change', render);
+      render();
+    }
+  }
+</script>

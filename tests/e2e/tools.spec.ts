@@ -23,3 +23,11 @@ test('ai package quiz returns a concrete recommendation', async ({ page }) => {
     /\/store\/google-ai-pro-2tb-family-owner$/
   );
 });
+
+test('token lab page shows a guided simulation shell', async ({ page }) => {
+  await page.goto('/tools/token-hoat-dong-nhu-the-nao');
+
+  await expect(page.getByRole('heading', { name: /Token hoạt động như thế nào/i })).toBeVisible();
+  await expect(page.getByText(/mô phỏng để hiểu cơ chế/i)).toBeVisible();
+  await expect(page.getByText(/Bước 1/i)).toBeVisible();
+});
