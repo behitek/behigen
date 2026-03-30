@@ -81,33 +81,54 @@ const defaultResult = getAiPackageQuizResult({
   </div>
 </section>
 
-<script type="module">
+<script>
   import { getAiPackageQuizResult } from '../../utils/aiPackageQuiz';
 
   const root = document.querySelector('[data-ai-package-quiz]');
 
   if (root instanceof HTMLElement) {
-    const query = (selector) => root.querySelector(selector);
+    const primaryNeed = root.querySelector('[name="primaryNeed"]');
+    const googleUseCase = root.querySelector('[name="googleUseCase"]');
+    const needsFamilyMembers = root.querySelector('[name="needsFamilyMembers"]');
+    const needsOwnerControl = root.querySelector('[name="needsOwnerControl"]');
+    const wantsLowestPrice = root.querySelector('[name="wantsLowestPrice"]');
+    const hasExistingChatGptAccount = root.querySelector('[name="hasExistingChatGptAccount"]');
+    const submit = root.querySelector('[data-submit]');
+    const resultHeading = root.querySelector('[data-result-heading]');
+    const resultSummary = root.querySelector('[data-result-summary]');
+    const resultWhy = root.querySelector('[data-result-why]');
+    const resultLink = root.querySelector('[data-result-link]');
 
-    const readAnswers = () => ({
-      primaryNeed: query('[name="primaryNeed"]').value,
-      googleUseCase: query('[name="googleUseCase"]').value,
-      needsFamilyMembers: query('[name="needsFamilyMembers"]').value === 'yes',
-      needsOwnerControl: query('[name="needsOwnerControl"]').value === 'yes',
-      wantsLowestPrice: query('[name="wantsLowestPrice"]').value === 'yes',
-      hasExistingChatGptAccount: query('[name="hasExistingChatGptAccount"]').value === 'yes'
-    });
+    if (
+      primaryNeed instanceof HTMLSelectElement &&
+      googleUseCase instanceof HTMLSelectElement &&
+      needsFamilyMembers instanceof HTMLInputElement &&
+      needsOwnerControl instanceof HTMLSelectElement &&
+      wantsLowestPrice instanceof HTMLInputElement &&
+      hasExistingChatGptAccount instanceof HTMLSelectElement &&
+      submit instanceof HTMLButtonElement &&
+      resultHeading instanceof HTMLElement &&
+      resultSummary instanceof HTMLElement &&
+      resultWhy instanceof HTMLElement &&
+      resultLink instanceof HTMLAnchorElement
+    ) {
+      const readAnswers = () => ({
+        primaryNeed: primaryNeed.value as 'google' | 'coding',
+        googleUseCase: googleUseCase.value as 'balanced' | 'storage' | 'ultra',
+        needsFamilyMembers: needsFamilyMembers.value === 'yes',
+        needsOwnerControl: needsOwnerControl.value === 'yes',
+        wantsLowestPrice: wantsLowestPrice.value === 'yes',
+        hasExistingChatGptAccount: hasExistingChatGptAccount.value === 'yes'
+      });
 
-    query('[data-submit]')?.addEventListener('click', () => {
-      const result = getAiPackageQuizResult(readAnswers());
+      submit.addEventListener('click', () => {
+        const result = getAiPackageQuizResult(readAnswers());
 
-      query('[data-result-heading]').textContent = result.heading;
-      query('[data-result-summary]').textContent = result.summary;
-      query('[data-result-why]').textContent = result.whyNotOtherPath;
-      query('[data-result-link]').setAttribute(
-        'href',
-        `${import.meta.env.BASE_URL}store/${result.recommendedSlug}`
-      );
-    });
+        resultHeading.textContent = result.heading;
+        resultSummary.textContent = result.summary;
+        resultWhy.textContent = result.whyNotOtherPath;
+        resultLink.setAttribute('href', `${import.meta.env.BASE_URL}store/${result.recommendedSlug}`);
+      });
+    }
   }
 </script>
