@@ -1,0 +1,23 @@
+{
+  "slug": "ai-package-quiz",
+  "title": "Chọn gói AI phù hợp",
+  "description": "Một quiz ngắn để chọn đúng gói Google hoặc ChatGPT / coding agent theo nhu cầu thực tế.",
+  "toolType": "practical",
+  "featured": true,
+  "estimatedMinutes": 3,
+  "level": "beginner",
+  "stepCount": 4,
+  "learningOutcomes": [
+    "Biết khi nào nên đi theo hướng Google",
+    "Biết khi nào ChatGPT / coding agent là đủ",
+    "Nhận 1 gợi ý sản phẩm cụ thể để xem tiếp trong cửa hàng"
+  ],
+  "relatedProducts": [
+    "chatgpt-plus-personal-renewal",
+    "google-ai-pro-2tb-family-owner",
+    "google-ai-pro-2tb-family-member",
+    "google-premium-5tb-family-owner",
+    "google-ai-ultra-30tb-share"
+  ],
+  "relatedPosts": []
+}
