@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildProductSummary,
   formatPriceLabel,
+  getProductLogoPath,
   groupProductsByCategory,
 } from "../../src/utils/products";
 
@@ -20,6 +21,11 @@ describe("products helpers", () => {
 
     expect(grouped.google).toHaveLength(2);
     expect(grouped.chatgpt).toHaveLength(1);
+  });
+
+  it("builds product logo paths from the Astro base URL", () => {
+    expect(getProductLogoPath("google")).toBe("/brands/google.svg");
+    expect(getProductLogoPath("chatgpt")).toBe("/brands/openai.svg");
   });
 
   it("builds a compact summary for product cards", () => {

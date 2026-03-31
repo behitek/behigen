@@ -5,8 +5,9 @@ export function formatPriceLabel(price: number): string {
 }
 
 export function getProductLogoPath(category: string): string {
-  if (category === "google") return "/brands/google.svg";
-  return "/brands/openai.svg";
+  const baseUrl = import.meta.env.BASE_URL ?? "/";
+  if (category === "google") return `${baseUrl}brands/google.svg`;
+  return `${baseUrl}brands/openai.svg`;
 }
 
 export function groupProductsByCategory<T extends { category: string }>(
