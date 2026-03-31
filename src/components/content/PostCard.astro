@@ -1,12 +1,20 @@
 ---
+import { normalizePathWithBase } from '@utils/seo';
+
 const { post } = Astro.props;
+const thumbnailSrc = post.data.thumbnail
+  ? normalizePathWithBase({
+      path: post.data.thumbnail,
+      basePath: import.meta.env.BASE_URL,
+    })
+  : undefined;
 ---
 
 <article class="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-  {post.data.thumbnail && (
+  {thumbnailSrc && (
     <a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="block aspect-[16/10] overflow-hidden bg-slate-100">
       <img
-        src={post.data.thumbnail}
+        src={thumbnailSrc}
         alt={post.data.title}
         class="h-full w-full object-cover"
         loading="lazy"
