@@ -1,0 +1,42 @@
+{
+  "slug": "google-ai-ultra-30tb-share",
+  "category": "google",
+  "name": "Google AI Ultra (30TB)",
+  "variant": "Tham gia gia đình",
+  "tagline": "Gói Google cao nhất cho người cần AI tier mạnh và dung lượng share cực lớn.",
+  "price": 2100000,
+  "billingTerm": "12 tháng",
+  "warranty": "12 tháng",
+  "deliveryType": "Account chính chủ, tham gia gia đình",
+  "featured": true,
+  "highlights": [
+    "Gemini AI Ultra và Antigravity Ultra",
+    "30TB Google Drive chia đều cho các thành viên gia đình",
+    "Dùng dài hạn 12 tháng với bảo hành rõ ràng"
+  ],
+  "details": [
+    "Phù hợp cho người có nhu cầu lưu trữ khối lượng lớn đi cùng AI Google tier cao nhất",
+    "Mô hình tham gia gia đình giúp có dung lượng share mà không cần tự quản lý family",
+    "Được tối ưu cho người cần một gói Google all-in-one thay vì ghép nhiều dịch vụ riêng"
+  ],
+  "suitableFor": [
+    "Người làm media hoặc lưu trữ nhiều dữ liệu trên hệ Google",
+    "Người cần tier Gemini mạnh hơn Google AI Pro"
+  ],
+  "notSuitableFor": [
+    "Người chỉ cần AI chat cơ bản không cần dung lượng lớn",
+    "Người có ngân sách thấp hoặc chỉ muốn dùng ngắn hạn"
+  ],
+  "purchaseNotes": [
+    "Liên hệ trước để xác nhận tình trạng gói Ultra tại thời điểm mua",
+    "Bàn giao qua chat sau khi thống nhất hình thức và thời gian nhận"
+  ],
+  "faqs": [
+    {
+      "question": "30TB là dung lượng share hay toàn quyền quản lý?",
+      "answer": "Đây là gói account chính chủ tham gia gia đình, phù hợp khi bạn cần nhận dung lượng share thay vì tự quản lý family."
+    }
+  ],
+  "seoTitle": "Google AI Ultra 30TB share cho dev và người cần lưu trữ lớn",
+  "seoDescription": "Google AI Ultra 30TB share, thời hạn 12 tháng, phù hợp cho nhu cầu AI tier cao và lưu trữ lớn."
+}

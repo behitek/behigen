@@ -1,0 +1,43 @@
+{
+  "slug": "google-ai-pro-2tb-family-member",
+  "category": "google",
+  "name": "Google AI Pro (2TB)",
+  "variant": "Tham gia gia đình",
+  "tagline": "Bản tiết kiệm nhất để vào hệ Google AI Pro khi bạn không cần quyền quản lý family.",
+  "price": 100000,
+  "billingTerm": "12 tháng",
+  "warranty": "12 tháng",
+  "deliveryType": "Account chính chủ, tham gia gia đình",
+  "featured": true,
+  "highlights": [
+    "Gemini Pro tại gemini.google",
+    "2TB Google Drive chia đều cho các thành viên gia đình",
+    "Antigravity và Gemini-CLI",
+    "Nano Banana Pro 3"
+  ],
+  "details": [
+    "Giữ lợi thế về AI và storage của gói AI Pro nhưng giá thấp hơn đáng kể",
+    "Phù hợp cho người chỉ cần dùng cá nhân và không cần tự quản lý family",
+    "Bảo hành trọn 12 tháng như các gói Google dài hạn khác"
+  ],
+  "suitableFor": [
+    "Sinh viên và người mới đi làm muốn vào hệ Google AI với ngân sách thấp",
+    "Người cần 2TB share nhưng không cần full quyền family"
+  ],
+  "notSuitableFor": [
+    "Người muốn tự thêm hoặc quản lý thành viên family",
+    "Người không dùng hệ Google Drive và Photos"
+  ],
+  "purchaseNotes": [
+    "Đây là hình thức tham gia gia đình nên không có full quyền quản lý family",
+    "Trao đổi trước nếu bạn cần phân biệt rõ bản owner và member"
+  ],
+  "faqs": [
+    {
+      "question": "Khác gì với bản quản lý gia đình?",
+      "answer": "Bản này là tham gia gia đình nên không có full quyền family, đổi lại giá thấp hơn đáng kể."
+    }
+  ],
+  "seoTitle": "Google AI Pro 2TB tham gia gia đình giá tốt cho sinh viên IT",
+  "seoDescription": "Google AI Pro 2TB dạng family member, giá 100K, bảo hành 12 tháng, phù hợp cho người cần AI và storage tiết kiệm."
+}

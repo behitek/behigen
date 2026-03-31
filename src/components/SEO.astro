@@ -1,0 +1,39 @@
+---
+import { buildAbsoluteUrl } from '@utils/seo';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonical?: string;
+}
+
+const {
+  title,
+  description,
+  image = '/og-image.svg',
+  canonical = Astro.url.pathname
+} = Astro.props;
+
+const site = Astro.site ?? 'https://behitek.com';
+const basePath = import.meta.env.BASE_URL;
+const canonicalUrl = buildAbsoluteUrl({ pathOrUrl: canonical, basePath, site });
+const imageUrl = buildAbsoluteUrl({ pathOrUrl: image, basePath, site });
+const faviconUrl = buildAbsoluteUrl({ pathOrUrl: '/favicon.svg', basePath, site });
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="theme-color" content="#0891b2" />
+<link rel="canonical" href={canonicalUrl} />
+<link rel="icon" href={faviconUrl} type="image/svg+xml" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="vi_VN" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={imageUrl} />
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={imageUrl} />

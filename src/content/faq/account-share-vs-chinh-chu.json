@@ -1,0 +1,16 @@
+{
+  "group": "Account share và account chính chủ",
+  "description": "Sự khác nhau giữa các hình thức bàn giao phổ biến.",
+  "groupSlug": "account-share-vs-chinh-chu",
+  "order": 3,
+  "items": [
+    {
+      "question": "Account share và account chính chủ khác nhau ở đâu?",
+      "answer": "Account chính chủ là tài khoản thuộc quyền dùng trực tiếp của bạn, còn account share thường tham gia vào cấu trúc dùng chung như family hoặc chia dung lượng."
+    },
+    {
+      "question": "Bản family owner và family member khác nhau thế nào?",
+      "answer": "Family owner có quyền quản lý thành viên và cấu hình family, còn family member chỉ tham gia sử dụng trong cấu trúc đã có sẵn."
+    }
+  ]
+}

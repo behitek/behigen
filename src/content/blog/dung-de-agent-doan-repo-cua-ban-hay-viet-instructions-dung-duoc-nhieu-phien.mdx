@@ -1,0 +1,220 @@
+---
+title: "Đừng để agent đoán repo của bạn: hãy viết instructions dùng được nhiều phiên"
+description: "Cách viết file instructions cho repo để coding agent hiểu lệnh build, test, phạm vi an toàn và thói quen làm việc của team ngay từ đầu."
+pubDate: 2026-03-29
+tags:
+  - instructions
+  - agents-md
+  - context
+category: instructions
+featured: true
+relatedProducts: []
+sourceLabel: OpenAI
+sourceUrl: https://developers.openai.com/codex/guides/agents-md
+thumbnail: /blog/repo-instructions.jpg
+---
+
+Một trong những hiểu lầm phổ biến của người mới là: chỉ cần chat đủ lâu thì coding agent sẽ "nhớ cách team mình làm".
+
+Thực tế, nhiều agent hoạt động theo từng phiên hoặc từng task. Nếu bạn không có chỗ ghi lại hướng dẫn bền vững, mỗi phiên mới gần như lại bắt đầu bằng một vòng đoán:
+
+- project này chạy lệnh nào
+- file nào nhạy cảm không nên sửa bừa
+- cần build hay test trước khi kết thúc
+- team thích code style nào
+- phần nào được refactor, phần nào không
+
+Đó là lý do các hệ thống agent hiện đại đều có khái niệm **project instructions**. Tên file có thể khác nhau như `AGENTS.md`, `CLAUDE.md`, hoặc `copilot-instructions.md`, nhưng ý tưởng chung là giống nhau: repo cần có một nơi nói cho agent biết cách làm việc trong dự án này.
+
+## Vì sao instructions quan trọng hơn bạn nghĩ
+
+Prompt giải quyết **một việc cụ thể**.
+
+Instructions giải quyết **cách làm việc lặp đi lặp lại**.
+
+Nếu ngày nào bạn cũng phải nhắc:
+
+- chạy `npm run build` trước khi kết thúc
+- không đụng vào thư mục generated
+- ưu tiên dùng path alias thay vì relative import sâu
+- đừng đổi text marketing nếu không được yêu cầu
+
+thì những thứ đó không nên tiếp tục sống trong chat. Chúng nên được chuyển thành instructions ở cấp repo.
+
+OpenAI mô tả `AGENTS.md` như cách để Codex đọc hướng dẫn trước khi bắt đầu làm việc. Anthropic cũng có khái niệm project instructions cho `CLAUDE.md`. GitHub Copilot coding agent thì hỗ trợ nhiều loại custom instruction files, bao gồm cả `AGENTS.md` và `CLAUDE.md`.
+
+Nói cách khác, đây không còn là mẹo của một công cụ riêng lẻ nữa. Nó đang trở thành best practice chung.
+
+## Nên viết gì vào file instructions?
+
+Người mới hay mắc hai cực đoan:
+
+- hoặc không viết gì
+- hoặc biến instructions thành một cuốn cẩm nang dài 20 trang
+
+Một file tốt nên ngắn, cụ thể, và phục vụ trực tiếp cho quyết định của agent.
+
+Những thứ nên có:
+
+- lệnh cài đặt, dev, build, lint, test
+- quy ước import, naming, format
+- thư mục generated hoặc thư mục không nên sửa tay
+- nguyên tắc an toàn như không thêm dependency mới nếu chưa nêu lý do
+- yêu cầu verify trước khi kết thúc
+- ghi chú kiến trúc ngắn gọn cho phần dễ nhầm
+
+Những thứ không nên nhét quá sâu:
+
+- lịch sử công ty
+- roadmap dài hạn không liên quan task
+- triết lý phát triển chung chung
+- checklist lặp lại y hệt trong README nếu nó không ảnh hưởng cách agent ra quyết định
+
+## Một bộ instructions tối thiểu cho người mới
+
+Nếu bạn chưa có gì, hãy bắt đầu với 5 nhóm này:
+
+### 1. Cách chạy project
+
+Ví dụ:
+
+- dùng `npm install` để cài dependency
+- dùng `npm run dev` để chạy local
+- dùng `npm run build` trước khi kết thúc task
+
+### 2. Quy tắc chỉnh sửa
+
+Ví dụ:
+
+- không sửa file generated trong `dist/`
+- ưu tiên thay đổi phạm vi nhỏ nhất cần thiết
+- không đổi hành vi nếu chưa nêu rõ giả định
+
+### 3. Quy tắc kiểm tra
+
+Ví dụ:
+
+- sau khi sửa logic, chạy test liên quan
+- sau khi sửa giao diện, ít nhất phải build thành công
+- nếu không chạy được test, phải nói rõ lý do
+
+### 4. Quy ước code
+
+Ví dụ:
+
+- dùng alias import thay vì relative path sâu
+- component dùng `PascalCase`
+- utility file dùng `camelCase`
+
+### 5. Phạm vi nhạy cảm
+
+Ví dụ:
+
+- không đổi env vars hoặc cấu hình deploy nếu không được yêu cầu
+- không tự ý đổi workflow CI/CD
+- không xóa nội dung trong `public/` hoặc `src/content/` nếu chưa được yêu cầu
+
+## Viết ngắn nhưng kiểm tra được
+
+Đây là nguyên tắc rất đáng giữ.
+
+Một instruction tốt thường có thể kiểm tra được bằng mắt:
+
+- "chạy build trước khi kết thúc"
+- "không thêm dependency production nếu chưa giải thích"
+- "ưu tiên sửa file liên quan nhất trước"
+
+Một instruction yếu thường mơ hồ:
+
+- "hãy code đẹp"
+- "hãy cẩn thận"
+- "hãy follow best practices"
+
+Mơ hồ thì nghe hay, nhưng agent không biết phải biến nó thành hành động nào.
+
+## Instructions cũng nên có phân tầng
+
+OpenAI mô tả cách instructions có thể được đọc theo nhiều tầng: global và project. GitHub cũng phân biệt repository-wide instructions với path-specific instructions. Điều này rất hữu ích khi repo của bạn có nhiều vùng khác nhau.
+
+Ví dụ:
+
+- repo root có luật chung cho mọi người
+- thư mục `payments/` có thêm rule riêng vì nhạy cảm
+- thư mục `docs/` có style viết khác code
+
+Bạn không cần làm ngay từ đầu, nhưng nên biết rằng instructions không nhất thiết chỉ có một file duy nhất cho mọi trường hợp.
+
+## Một mẫu đơn giản bạn có thể dùng ngay
+
+```md
+# Project Instructions
+
+## Commands
+
+- Install: `npm install`
+- Dev: `npm run dev`
+- Build: `npm run build`
+- Lint: `npm run lint`
+
+## Editing Rules
+
+- Prefer small, targeted edits.
+- Do not modify generated output in `dist/`.
+- Do not add new dependencies unless you explain why.
+
+## Verification
+
+- Run the smallest relevant test after changing logic.
+- Run `npm run build` before finishing.
+- If verification is not run, state that clearly.
+
+## Codebase Notes
+
+- Prefer path aliases over deep relative imports.
+- Follow existing Astro and TypeScript patterns.
+
+## Safety
+
+- Do not change CI, env vars, or deployment config unless explicitly asked.
+```
+
+Bạn không cần hoàn hảo ngay phiên đầu. Chỉ cần có một file sống được, rồi bổ sung mỗi khi agent lặp lại cùng một lỗi.
+
+## Khi nào nên cập nhật instructions?
+
+Hãy cập nhật khi bạn thấy một lỗi lặp lại ít nhất 2 lần, ví dụ:
+
+- agent hay quên chạy build
+- agent hay sửa quá rộng
+- agent hay động vào file không nên đụng
+- agent hay viết test khác style của repo
+
+Mỗi lỗi lặp lại như vậy là một ứng viên để chuyển thành instruction.
+
+## Một cách nghĩ rất thực dụng
+
+Prompt là lời giao việc.
+
+Instructions là nội quy làm việc.
+
+Nếu bạn chỉ có prompt mà không có instructions, bạn đang thuê một cộng sự mới mỗi ngày nhưng không hề có onboarding.
+
+## Kết luận
+
+Người mới thường cố tối ưu prompt trước. Nhưng sau vài tuần dùng coding agent, thứ giúp chất lượng ổn định hơn thường là **file instructions của repo**.
+
+Viết instructions không phải để làm cho agent "thông minh hơn". Nó để agent:
+
+- đoán ít hơn
+- phá ít hơn
+- kiểm tra đúng hơn
+- bám thói quen của team tốt hơn
+
+Đó là một khoản đầu tư nhỏ nhưng trả lại rất đều.
+
+## Tài liệu tham khảo
+
+- [Custom instructions with AGENTS.md - Codex | OpenAI Developers](https://developers.openai.com/codex/guides/agents-md)
+- [How Claude remembers your project - Claude Code Docs](https://code.claude.com/docs/en/memory)
+- [Best practices for using GitHub Copilot to work on tasks](https://docs.github.com/en/copilot/tutorials/coding-agent/get-the-best-results)
+- [Your first custom instructions - GitHub Docs](https://docs.github.com/en/copilot/tutorials/customization-library/custom-instructions/your-first-custom-instructions)

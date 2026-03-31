@@ -1,0 +1,42 @@
+{
+  "slug": "chatgpt-plus-personal-renewal",
+  "category": "chatgpt",
+  "name": "ChatGPT Plus (Personal)",
+  "variant": "Gia hạn chính chủ",
+  "tagline": "Lựa chọn gọn nhất cho người chỉ cần ChatGPT mạnh để học, debug và làm việc mỗi tháng.",
+  "price": 200000,
+  "billingTerm": "1 tháng",
+  "warranty": "01 tháng",
+  "deliveryType": "Gia hạn chính chủ",
+  "featured": true,
+  "highlights": [
+    "Toàn quyền truy cập GPT-5 (model mới nhất) trên ChatGPT",
+    "Phân tích dữ liệu chuyên sâu",
+    "Tích hợp Codex (Coding agent)"
+  ],
+  "details": [
+    "Phù hợp khi bạn đã có tài khoản và chỉ muốn gia hạn nhanh",
+    "Mạnh cho nhu cầu chat AI, coding, tóm tắt và hỗ trợ học tập hằng ngày",
+    "Không gắn với hệ lưu trữ lớn như các gói Google"
+  ],
+  "suitableFor": [
+    "Người cần AI chat và coding theo chu kỳ 1 tháng",
+    "Dev muốn gia hạn tài khoản cá nhân đang dùng"
+  ],
+  "notSuitableFor": [
+    "Người cần Google Drive hoặc Photos dung lượng lớn",
+    "Người muốn dùng rất tiết kiệm với chi phí thấp nhất có thể"
+  ],
+  "purchaseNotes": [
+    "Chuẩn bị sẵn tài khoản cần gia hạn để xử lý nhanh qua chat",
+    "Xác nhận lại tình trạng tài khoản trước khi chốt"
+  ],
+  "faqs": [
+    {
+      "question": "Gói này là gia hạn trên tài khoản của mình đúng không?",
+      "answer": "Đúng, đây là hình thức gia hạn chính chủ cho tài khoản cá nhân đang dùng."
+    }
+  ],
+  "seoTitle": "ChatGPT Plus personal gia hạn chính chủ cho dev và sinh viên IT",
+  "seoDescription": "ChatGPT Plus personal gia hạn chính chủ, 1 tháng, phù hợp cho nhu cầu AI chat, coding và học tập."
+}

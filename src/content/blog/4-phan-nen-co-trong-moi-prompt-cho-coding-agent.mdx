@@ -1,0 +1,201 @@
+---
+title: 4 phần nên có trong mọi prompt cho coding agent
+description: "Khung nhập môn giúp người mới giao việc cho coding agent rõ hơn: mục tiêu, context, ràng buộc và cách kiểm tra kết quả."
+pubDate: 2026-03-30
+tags:
+  - coding-agent
+  - prompting
+  - best-practices
+category: nhap-mon
+featured: true
+relatedProducts: []
+sourceLabel: GitHub
+sourceUrl: https://docs.github.com/en/copilot/tutorials/coding-agent/get-the-best-results
+thumbnail: /blog/prompt-coding-agent.jpg
+---
+
+Người mới thường bắt đầu với một prompt rất ngắn kiểu như:
+
+> sửa bug này giúp mình
+
+Hoặc:
+
+> thêm trang đăng nhập
+
+Vấn đề là coding agent không chỉ "viết code". Nó phải tự hiểu bài toán, tự đoán phạm vi, tự chọn file, tự quyết định có test hay không, rồi tự kết luận đã xong chưa. Nếu prompt quá ngắn, phần "tự đoán" sẽ phình ra rất lớn. Và đó là lúc chất lượng dao động.
+
+Tin vui là bạn không cần học prompt engineering quá cầu kỳ. Với người mới, chỉ cần giữ thói quen viết prompt theo 4 phần là chất lượng thường tăng rõ rệt.
+
+## 1. Mục tiêu: bạn muốn nó giải quyết việc gì?
+
+Đây là phần trả lời câu hỏi: _bài toán thật sự là gì?_
+
+Hãy mô tả bằng ngôn ngữ đơn giản:
+
+- lỗi đang xảy ra là gì
+- tính năng cần có là gì
+- kết quả cuối cùng trông như thế nào
+
+Ví dụ yếu:
+
+> sửa form thanh toán
+
+Ví dụ tốt hơn:
+
+> Form thanh toán đang cho bấm Submit dù thiếu số điện thoại. Hãy chặn submit khi thiếu số điện thoại và hiển thị lỗi ngay dưới ô input.
+
+Phần này nên cụ thể đến mức một người trong team đọc vào cũng hiểu bạn muốn đổi hành vi nào, chứ không phải chỉ hiểu chủ đề chung chung.
+
+## 2. Context: đưa đúng bối cảnh, không đổ cả repo vào
+
+Agent cho kết quả tốt hơn khi có context liên quan. Tài liệu của GitHub cũng nhấn mạnh rằng task rõ, có file liên quan và tiêu chí chấp nhận đầy đủ sẽ cho kết quả tốt hơn.
+
+Context hữu ích thường là:
+
+- file nghi ngờ liên quan
+- bước tái hiện lỗi
+- API hoặc component đang dùng
+- giới hạn hệ thống hiện tại
+
+Ví dụ:
+
+- lỗi tái hiện ở `/settings`
+- file nghi ngờ: `SettingsForm.tsx` và `useSettings.ts`
+- API shape không được đổi
+
+Bạn không cần đính kèm 30 file "cho chắc". Context tốt là context đủ dùng. Quá nhiều thông tin không liên quan có thể làm agent bối rối không kém gì quá ít thông tin.
+
+## 3. Ràng buộc: nói rõ cái gì được đổi và cái gì không
+
+Rất nhiều lần agent làm sai không phải vì nó "dốt", mà vì nó tối ưu theo một mục tiêu khác với bạn. Bạn muốn sửa tối thiểu, nhưng nó lại refactor rộng. Bạn muốn giữ API cũ, nhưng nó lại đổi contract cho tiện tay. Bạn muốn thêm test, nhưng nó chỉ sửa code rồi dừng.
+
+Phần ràng buộc giúp chặn những lệch hướng này.
+
+Một số ràng buộc hay dùng:
+
+- không đổi API shape
+- sửa tối thiểu, không refactor lan rộng
+- phải giữ nguyên UI hiện tại ngoài phần được nêu
+- thêm regression test nếu hợp lý
+- chạy lint hoặc test liên quan trước khi kết thúc
+
+Người mới thường ngại viết ràng buộc vì sợ "ra lệnh nhiều quá". Thực tế, đây là cách giúp agent bớt đoán. Với coding agents, rõ ràng thường tốt hơn lịch sự mơ hồ.
+
+## 4. Định nghĩa xong việc: thế nào thì coi là hoàn thành?
+
+Đây là phần bị bỏ qua nhiều nhất.
+
+Nếu bạn không nói "xong khi nào", agent rất dễ kết thúc quá sớm. Nó có thể sửa được một dòng code rồi báo xong, trong khi bạn muốn thêm test, muốn chỉ cách verify, hoặc muốn báo rủi ro còn lại.
+
+Hãy thêm một đoạn ngắn kiểu:
+
+- xong khi bug không còn tái hiện theo các bước trên
+- có ít nhất một test cho happy path và một edge case
+- chạy lint + test nhỏ nhất liên quan và báo kết quả
+- giải thích ngắn nguyên nhân gốc của bug
+
+Khi có phần này, bạn đang biến prompt từ "mong muốn" thành "tiêu chí bàn giao".
+
+## Một mẫu prompt rất dễ dùng cho người mới
+
+Bạn có thể copy khung này và điền nhanh:
+
+```text
+Mục tiêu:
+- Sửa lỗi / thêm tính năng gì?
+
+Context:
+- Bước tái hiện hoặc hành vi hiện tại
+- File hoặc khu vực nghi ngờ liên quan
+- Thông tin hệ thống cần biết
+
+Ràng buộc:
+- Không được đổi gì
+- Chỉ được sửa trong phạm vi nào
+- Có cần thêm test, lint, build hay không
+
+Xong khi:
+- Hành vi mong muốn đạt được
+- Các bước verify cần chạy
+- Cần báo lại những gì
+```
+
+Khung này không hào nhoáng, nhưng rất thực dụng. Nó khiến agent hiểu đúng việc hơn, và cũng khiến chính bạn nghĩ rõ hơn trước khi giao việc.
+
+## Ví dụ trước và sau
+
+Ví dụ prompt cũ:
+
+> sửa lỗi save settings
+
+Ví dụ prompt mới:
+
+```text
+Mục tiêu:
+- Sửa lỗi ở trang /settings: bấm Save báo thành công nhưng refresh lại thì dữ liệu không lưu.
+
+Context:
+- Có thể liên quan tới SettingsForm.tsx và hook useSettings.ts.
+- Cách tái hiện:
+  1. Mở /settings
+  2. Bật Enable alerts
+  3. Bấm Save
+  4. Refresh trang
+  5. Giá trị bị reset
+
+Ràng buộc:
+- Không đổi API shape.
+- Giữ fix ở mức tối thiểu.
+- Nếu hợp lý, thêm regression test.
+
+Xong khi:
+- Lỗi không còn tái hiện theo các bước trên.
+- Chạy lint và test liên quan nhỏ nhất.
+- Báo lại nguyên nhân gốc và cách verify trong UI.
+```
+
+Cùng một model, prompt thứ hai gần như luôn dễ cho ra kết quả ổn định hơn.
+
+## Ba lỗi người mới hay gặp
+
+### Viết mục tiêu quá chung
+
+"Tối ưu code này", "làm sạch file này", "cải thiện UX" đều quá mở nếu không có tiêu chí cụ thể.
+
+### Chỉ đưa yêu cầu, không đưa cách kiểm tra
+
+Agent cần biết nó sẽ bị đánh giá theo cái gì. Nếu không, nó thường tối ưu theo việc "trông có vẻ đã xong".
+
+### Giao một cục quá to
+
+Nếu task lớn, hãy tách thành nhiều prompt nhỏ. GitHub cũng khuyên nên chia nhỏ tác vụ phức tạp và nêu yêu cầu thật cụ thể.
+
+## Cách áp dụng ngay hôm nay
+
+Trong 3 phiên làm việc tiếp theo, đừng cố viết prompt dài hơn. Hãy chỉ kiểm tra xem prompt của bạn đã có đủ 4 phần chưa:
+
+1. Mục tiêu
+2. Context
+3. Ràng buộc
+4. Định nghĩa xong việc
+
+Nếu đủ 4 phần này, bạn đã vượt qua lỗi nhập môn phổ biến nhất của người mới dùng coding agent: giao việc kiểu "tự hiểu đi".
+
+## Kết luận
+
+Best practice đầu tiên không phải là chọn model nào, IDE nào hay agent nào. Best practice đầu tiên là **đừng bắt agent đoán quá nhiều**.
+
+Một prompt tốt cho coding agent không cần văn vẻ. Nó chỉ cần trả lời rõ:
+
+- cần làm gì
+- đang ở đâu
+- không được làm gì
+- xong khi nào
+
+Làm được đúng vậy, bạn sẽ thấy số lần phải nhắc lại giảm xuống rất nhiều.
+
+## Tài liệu tham khảo
+
+- [Best practices for using GitHub Copilot](https://docs.github.com/en/copilot/get-started/best-practices)
+- [Best practices for using GitHub Copilot to work on tasks](https://docs.github.com/en/copilot/tutorials/coding-agent/get-the-best-results)
+- [Workflows - Codex | OpenAI Developers](https://developers.openai.com/codex/workflows)

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://behitek.com/behigen/sitemap-index.xml

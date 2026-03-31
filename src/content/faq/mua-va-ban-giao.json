@@ -1,0 +1,16 @@
+{
+  "group": "Mua và bàn giao",
+  "description": "Những điều người mua cần biết trước khi chốt đơn.",
+  "groupSlug": "mua-va-ban-giao",
+  "order": 1,
+  "items": [
+    {
+      "question": "Sau khi liên hệ thì quy trình mua diễn ra như thế nào?",
+      "answer": "Bạn chọn sản phẩm, nhắn qua kênh chat phù hợp, được xác nhận tình trạng gói, rồi nhận hướng dẫn mua và bàn giao."
+    },
+    {
+      "question": "Thời gian bàn giao thường mất bao lâu?",
+      "answer": "Phần lớn đơn được xử lý ngay trong khung thời gian hỗ trợ khi đã chốt đúng gói và chuẩn bị đủ thông tin nhận bàn giao."
+    }
+  ]
+}

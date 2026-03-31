@@ -1,0 +1,129 @@
+---
+import { formatPriceLabel } from '@utils/products';
+
+const { products, currentProductSlug } = Astro.props;
+
+const criteriaRows = [
+  {
+    label: 'Giá',
+    renderValue: (product: any) => formatPriceLabel(product.price)
+  },
+  {
+    label: 'Thời gian sử dụng',
+    renderValue: (product: any) => product.billingTerm
+  },
+  {
+    label: 'Bảo hành',
+    renderValue: (product: any) => product.warranty
+  },
+  {
+    label: 'Hình thức',
+    renderValue: (product: any) => product.deliveryType
+  },
+  {
+    label: 'Phù hợp với',
+    renderValue: (product: any) => product.suitableFor.slice(0, 2).join(' / ')
+  }
+];
+---
+
+<section class="rounded-[2rem] border border-slate-200 bg-white p-6">
+  <p class="text-sm font-semibold uppercase tracking-[0.14em] text-cyan-700">Same Category</p>
+  <h2 class="mt-2 text-2xl font-black text-slate-950">So sánh các gói cùng nhóm</h2>
+  <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
+    Bảng dưới đây đặt các gói cùng danh mục cạnh nhau để bạn nhìn rõ sự khác biệt theo từng tiêu chí.
+  </p>
+
+  <div class="mt-6 overflow-hidden rounded-[1.75rem] border border-slate-200">
+    <div class="overflow-x-auto">
+      <table class="min-w-[56rem] w-full border-collapse text-left text-sm text-slate-700">
+        <thead>
+          <tr class="bg-slate-50 align-top">
+            <th class="w-44 border-b border-r border-slate-200 px-4 py-4 text-xs font-bold uppercase tracking-[0.14em] text-slate-500">
+              Tiêu chí
+            </th>
+            {products.map((product: any) => {
+              const isCurrent = product.slug === currentProductSlug;
+
+              return (
+                <th
+                  class:list={[
+                    'min-w-56 border-b border-slate-200 px-4 py-4',
+                    isCurrent ? 'border-l border-r border-cyan-200 bg-cyan-50/80' : 'border-r border-slate-200 bg-white'
+                  ]}
+                >
+                  <div class="flex flex-col gap-3">
+                    {isCurrent && (
+                      <span class="inline-flex w-fit rounded-full bg-cyan-600 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-white">
+                        Gói hiện tại
+                      </span>
+                    )}
+                    <div>
+                      <div class:list={['text-lg font-black', isCurrent ? 'text-cyan-900' : 'text-slate-950']}>
+                        {product.name}
+                      </div>
+                      <div class="mt-1 text-xs uppercase tracking-[0.12em] text-slate-500">{product.variant}</div>
+                    </div>
+                  </div>
+                </th>
+              );
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {criteriaRows.map((row) => (
+            <tr class="align-top">
+              <th class="border-b border-r border-slate-200 bg-slate-50 px-4 py-4 font-semibold text-slate-700">
+                {row.label}
+              </th>
+              {products.map((product: any) => {
+                const isCurrent = product.slug === currentProductSlug;
+
+                return (
+                  <td
+                    class:list={[
+                      'border-b px-4 py-4 leading-6',
+                      isCurrent ? 'border-l border-r border-cyan-200 bg-cyan-50/70 text-slate-900' : 'border-r border-slate-200 bg-white'
+                    ]}
+                  >
+                    {row.renderValue(product)}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+          <tr class="align-top">
+            <th class="border-r border-slate-200 bg-slate-50 px-4 py-4 font-semibold text-slate-700">
+              Chi tiết
+            </th>
+            {products.map((product: any) => {
+              const isCurrent = product.slug === currentProductSlug;
+
+              return (
+                <td
+                  class:list={[
+                    'px-4 py-4',
+                    isCurrent ? 'border-l border-r border-cyan-200 bg-cyan-50/70' : 'border-r border-slate-200 bg-white'
+                  ]}
+                >
+                  {isCurrent ? (
+                    <span class="inline-flex rounded-full bg-white px-4 py-2 font-semibold text-cyan-700 ring-1 ring-cyan-200">
+                      Bạn đang xem gói này
+                    </span>
+                  ) : (
+                    <a
+                      href={`${import.meta.env.BASE_URL}store/${product.slug}`}
+                      class="inline-flex rounded-full border border-slate-300 px-4 py-2 font-semibold text-slate-900 transition hover:border-cyan-500 hover:text-cyan-700"
+                    >
+                      Xem chi tiết
+                    </a>
+                  )}
+                </td>
+              );
+            })}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

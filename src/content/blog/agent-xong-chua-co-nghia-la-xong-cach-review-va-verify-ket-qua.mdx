@@ -1,0 +1,171 @@
+---
+title: "Agent xong chưa có nghĩa là xong: cách review và verify kết quả"
+description: "Một checklist thực dụng cho người mới để kiểm tra lại code do agent tạo ra trước khi merge hoặc bàn giao."
+pubDate: 2026-03-27
+tags:
+  - verification
+  - review
+  - testing
+category: verification
+featured: false
+relatedProducts: []
+sourceLabel: OpenAI
+sourceUrl: https://developers.openai.com/codex/workflows
+thumbnail: /blog/review-testing.jpg
+---
+
+Khoảnh khắc dễ mắc sai lầm nhất khi dùng coding agent là lúc nó trả về một câu rất đẹp:
+
+> Đã sửa xong.
+
+Người mới rất dễ nhẹ nhõm ở đây và chuyển sang bước tiếp theo. Nhưng trong thực tế, "xong" của agent chưa chắc là "xong" theo tiêu chuẩn của bạn.
+
+Best practice quan trọng bậc nhất sau khi giao việc là: **luôn có bước verify độc lập**.
+
+Không phải vì agent lúc nào cũng sai. Mà vì ngay cả khi code đúng ý tưởng, nó vẫn có thể:
+
+- hiểu sai phạm vi
+- bỏ sót edge case
+- sửa đúng file nhưng chưa chạy lại repro
+- làm pass một test nhưng tạo regression chỗ khác
+- đổi workflow hoặc config mà bạn chưa để ý
+
+## Verify theo 3 lớp là đủ dùng cho người mới
+
+### Lớp 1: kiểm tra hành vi
+
+Nếu bạn giao một bug có bước tái hiện rõ ràng, hãy yêu cầu agent chạy lại đúng các bước đó sau khi sửa.
+
+OpenAI trong phần workflow của Codex cũng nhấn mạnh điều này: với bug có thể reproduce, nên bắt đầu từ recipe tái hiện lỗi, rồi sau khi fix phải chạy lại bước đó để xác nhận lỗi thực sự biến mất.
+
+Đây là lớp kiểm tra gần người dùng nhất.
+
+Ví dụ:
+
+- bug ở nút Save thì vào UI bấm lại
+- bug ở API thì gọi lại endpoint
+- bug ở parser thì chạy lại input từng làm hỏng
+
+### Lớp 2: kiểm tra tự động
+
+Sau khi hành vi có vẻ đúng, hãy yêu cầu:
+
+- lint
+- test nhỏ nhất liên quan
+- build hoặc type-check nếu phù hợp
+
+GitHub khuyên nên dùng automated tests và tooling để kiểm tra lại code do AI gợi ý. Đây là lớp rất hiệu quả vì nó bắt được những thứ mắt thường hay bỏ qua như type mismatch, import sai, hoặc logic vỡ ở nhánh khác.
+
+### Lớp 3: đọc diff như người chịu trách nhiệm cuối cùng
+
+Bạn không cần đọc từng ký tự, nhưng nên nhìn diff để trả lời 3 câu:
+
+1. Nó có sửa đúng vùng mình mong chờ không?
+2. Có đổi gì ngoài phạm vi đã giao không?
+3. Cách sửa có dễ bảo trì không?
+
+GitHub nói rất rõ: bạn vẫn là người chịu trách nhiệm, và Copilot không thay thế chuyên môn của bạn. Đây là thái độ đúng với mọi coding agent, không riêng gì Copilot.
+
+## Hãy bắt agent chỉ luôn cách verify
+
+Một thói quen rất đáng giữ là thêm vào prompt:
+
+> Sau khi sửa, hãy nói rõ cách verify trong UI hoặc bằng command.
+
+OpenAI cũng có ví dụ prompt kiểu:
+
+> Sau khi đề xuất fix, hãy cho tôi biết cách verify nó trong UI.
+
+Lợi ích của câu này là bạn buộc agent nghĩ đến "đầu ra có kiểm chứng", thay vì chỉ nghĩ đến "bản patch trông hợp lý".
+
+## Review theo lô, đừng comment lẻ tẻ
+
+Nếu bạn làm việc qua pull request hoặc session review, GitHub khuyên nên batch review comments thay vì gửi từng comment rời rạc.
+
+Lý do rất đơn giản:
+
+- agent nhận được bức tranh đầy đủ hơn
+- tránh tạo nhiều vòng sửa nhỏ, chồng chéo
+- bạn giữ được một tiêu chí review thống nhất
+
+Thay vì:
+
+- comment 1: đổi tên biến này
+- comment 2: thêm test kia
+- comment 3: chỗ này chưa ổn
+
+hãy gom lại:
+
+- cần rõ nguyên nhân gốc
+- cần thêm regression test
+- cần tránh sửa vào `.github/workflows`
+- cần giữ API shape như cũ
+
+Một comment tốt cho agent gần giống một mini-spec cho vòng sửa tiếp theo.
+
+## Đặc biệt cẩn thận với workflow và secrets
+
+GitHub có một lưu ý rất đáng chú ý khi review pull request do coding agent tạo ra: workflow CI/CD có thể là nơi nhạy cảm vì có quyền cao và có thể chạm tới secrets.
+
+Vì vậy, nếu diff có thay đổi ở:
+
+- `.github/workflows/`
+- file deploy
+- config môi trường
+- permission hoặc auth
+
+thì đừng review theo kiểu "lướt qua cho xong". Đây là nhóm thay đổi cần mức cảnh giác cao hơn hẳn.
+
+## Một checklist 60 giây trước khi merge
+
+Bạn có thể dùng checklist này:
+
+1. Lỗi hoặc hành vi gốc đã được thử lại chưa?
+2. Agent đã chạy test, lint, build hay chưa?
+3. Diff có vượt phạm vi task không?
+4. Có đụng vào config nhạy cảm, workflow, auth, permission hay không?
+5. Có thêm test hoặc ít nhất mô tả cách verify không?
+6. Nếu phải làm thêm một vòng nữa, bạn đã viết yêu cầu review đủ rõ chưa?
+
+Chỉ riêng checklist này đã giúp giảm rất nhiều lỗi "merge xong mới biết".
+
+## Khi nào nên yêu cầu review lần hai?
+
+Hãy yêu cầu thêm một vòng review nếu:
+
+- fix đụng tới auth, payment, permission
+- agent vừa sửa bug vừa refactor
+- có thay đổi sang nhiều file hơn dự kiến
+- test pass nhưng hành vi vẫn khó tin
+
+OpenAI còn có workflow review riêng, nơi bạn có thể yêu cầu tập trung vào edge cases hoặc security issues. Đây là một cách rất thực tế để dùng agent như một người soát lỗi phụ, không phải người ký duyệt cuối.
+
+## Một cách nghĩ lành mạnh
+
+Coding agent giỏi nhất khi nó giúp bạn:
+
+- tăng tốc phần tạo và sửa
+- nhắc lại test và verify
+- đưa ra góc nhìn review thứ hai
+
+Nó không thay thế bước xác nhận cuối cùng của con người.
+
+Nếu giữ được tư duy này, bạn sẽ tận dụng được agent mà không rơi vào kiểu "tin tuyệt đối rồi trả giá ở production".
+
+## Kết luận
+
+Best practice không phải là bắt agent làm hoàn hảo ngay từ đầu. Best practice là tạo ra một quy trình mà dù agent có sai, bạn vẫn phát hiện trước khi merge.
+
+Với người mới, chỉ cần nhớ công thức này:
+
+- thử lại hành vi
+- chạy kiểm tra tự động
+- đọc diff với đúng trọng tâm
+
+Agent báo xong chỉ là tín hiệu để **bắt đầu verify**, không phải lý do để bỏ qua nó.
+
+## Tài liệu tham khảo
+
+- [Workflows - Codex | OpenAI Developers](https://developers.openai.com/codex/workflows)
+- [Best practices for using GitHub Copilot](https://docs.github.com/en/copilot/get-started/best-practices)
+- [Reviewing a pull request created by GitHub Copilot - GitHub Docs](https://docs.github.com/en/copilot/how-tos/agents/copilot-coding-agent/reviewing-a-pull-request-created-by-copilot)

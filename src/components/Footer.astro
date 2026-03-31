@@ -1,0 +1,22 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<footer class="border-t border-slate-200 bg-slate-50">
+  <div class="container py-12">
+    <div class="grid gap-10 md:grid-cols-[1.4fr_0.6fr]">
+      <div>
+        <a href={baseUrl} class="text-xl font-black tracking-tight text-slate-950">Behigen</a>
+        <p class="mt-4 max-w-2xl text-sm text-slate-600">
+          Cửa hàng tài khoản AI giá tốt cho dev và sinh viên IT, có blog, tools và FAQ để giúp bạn mua đúng gói cần dùng.
+        </p>
+      </div>
+      <div class="grid gap-2 text-sm font-semibold text-slate-700">
+        <a href={`${baseUrl}store`}>Xem cửa hàng</a>
+        <a href={`${baseUrl}tools`}>Xem công cụ</a>
+        <a href={`${baseUrl}blog`}>Đọc blog</a>
+        <a href={`${baseUrl}contact`}>Liên hệ tư vấn</a>
+      </div>
+    </div>
+  </div>
+</footer>

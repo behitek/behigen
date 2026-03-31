@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#ecfeff" />
+  <circle cx="1010" cy="120" r="180" fill="#bae6fd" fill-opacity="0.65" />
+  <circle cx="190" cy="540" r="220" fill="#a5f3fc" fill-opacity="0.55" />
+  <rect x="86" y="86" width="160" height="160" rx="48" fill="#0f172a" />
+  <path d="M136 124H174C196.091 124 214 141.909 214 164C214 186.091 196.091 204 174 204H136V124Z" fill="#22d3ee" />
+  <path d="M152 144H174C185.046 144 194 152.954 194 164C194 175.046 185.046 184 174 184H152V144Z" fill="#e0f2fe" />
+  <text x="300" y="210" fill="#0f172a" font-family="Arial, sans-serif" font-size="68" font-weight="700">Behigen</text>
+  <text x="96" y="340" fill="#0f172a" font-family="Arial, sans-serif" font-size="64" font-weight="800">
+    Tài khoản AI giá tốt cho dev
+  </text>
+  <text x="96" y="420" fill="#0f172a" font-family="Arial, sans-serif" font-size="64" font-weight="800">
+    và sinh viên IT
+  </text>
+  <text x="96" y="500" fill="#334155" font-family="Arial, sans-serif" font-size="34" font-weight="500">
+    Giá rõ ràng • Chọn đúng gói • Liên hệ nhanh qua chat
+  </text>
+</svg>

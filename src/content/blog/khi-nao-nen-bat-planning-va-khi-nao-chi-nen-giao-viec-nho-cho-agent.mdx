@@ -1,0 +1,180 @@
+---
+title: Khi nào nên bật planning, và khi nào chỉ nên giao việc nhỏ cho agent
+description: "Hướng dẫn dễ áp dụng để chọn đúng chế độ làm việc với coding agent: task nhỏ thì nhanh, task phức tạp thì phải lên plan trước."
+pubDate: 2026-03-28
+tags:
+  - planning
+  - workflow
+  - beginner
+category: planning
+featured: true
+relatedProducts: []
+sourceLabel: Anthropic
+sourceUrl: https://code.claude.com/docs/en/tutorials
+thumbnail: /blog/planning-workflow.jpg
+---
+
+Một lỗi rất thường gặp của người mới là dùng cùng một kiểu giao việc cho mọi loại task.
+
+Ví dụ:
+
+- đổi một dòng text trên nút
+- sửa bug liên quan 6 file
+- refactor hệ thống auth
+- thêm test cho một utility nhỏ
+
+Tất cả đều được gửi cho agent theo cùng một kiểu: "làm giúp mình".
+
+Đây là cách nhanh nhất để rơi vào hai trạng thái xấu:
+
+- task nhỏ bị làm quá nặng
+- task lớn bị làm quá ẩu
+
+Best practice ở đây là: **đừng coi mọi task giống nhau**. Hãy chọn chế độ làm việc theo độ rủi ro và độ mơ hồ của bài toán.
+
+## Quy tắc ngắn gọn nhất
+
+### Dùng task nhỏ hoặc chế độ nhanh khi:
+
+- phạm vi hẹp
+- bạn đã biết gần như chắc file nào cần sửa
+- có thể verify trong vài phút
+- nếu sai cũng sửa lại dễ
+
+Ví dụ:
+
+- đổi copy trên landing page
+- thêm một unit test cho function đã biết
+- sửa class CSS nhỏ
+- đổi tên biến hoặc prop cục bộ
+
+### Dùng planning khi:
+
+- phải đụng nhiều file
+- bạn chưa hiểu codebase đủ rõ
+- cần thảo luận hướng làm trước khi sửa
+- có rủi ro đổi hành vi rộng
+
+Anthropic mô tả Plan Mode là phù hợp cho multi-step implementation, code exploration, và interactive development. Google Antigravity cũng phân biệt giữa `Fast` cho việc nhỏ và `Planning` cho task phức tạp hơn, nơi agent tạo implementation plan trước khi nhảy vào code.
+
+## Dấu hiệu nên dừng lại và yêu cầu plan trước
+
+Nếu có một trong các dấu hiệu này, đừng để agent code ngay:
+
+- bạn không chắc phạm vi sẽ chạm bao nhiêu file
+- bạn cần so sánh 2-3 hướng làm
+- bug liên quan luồng dữ liệu, auth, caching, state, hoặc migration
+- bạn cần đồng ý cách verify trước khi sửa
+- bạn sợ một thay đổi nhỏ có thể kéo theo regression rộng
+
+Lúc đó, lời nhắc tốt hơn sẽ là:
+
+> Hãy đọc code liên quan, đề xuất plan ngắn, nêu file có thể bị ảnh hưởng, rủi ro chính và cách verify. Chưa sửa code vội.
+
+Cách này nghe chậm hơn, nhưng thường lại nhanh hơn tổng thời gian vì bạn giảm số vòng sửa sai.
+
+## Một mẹo rất dễ nhớ: quy tắc 2 phút
+
+Trước khi giao task cho agent, tự hỏi:
+
+> Mình có thể mô tả cách verify và đoán vùng sửa trong vòng 2 phút không?
+
+Nếu câu trả lời là:
+
+- **có**: nhiều khả năng đây là task nhỏ, cứ giao thẳng nhưng nhớ nêu ràng buộc
+- **không**: khả năng cao cần plan trước
+
+Đây không phải công thức tuyệt đối, nhưng đủ tốt cho người mới để tránh kiểu "bug nhìn đơn giản mà lôi cả sprint xuống".
+
+## Planning không có nghĩa là làm chậm
+
+Nhiều người sợ planning vì nghĩ nó chỉ thêm giấy tờ.
+
+Thực ra plan tốt giúp bạn chốt 4 thứ trước:
+
+- phạm vi
+- thứ tự làm
+- rủi ro
+- cách verify
+
+Khi 4 thứ này rõ, agent có thể làm nhanh hơn và bạn review cũng đỡ mệt hơn.
+
+OpenAI trong phần workflow của Codex cũng cho thấy một mẫu làm việc rất thực tế: thiết kế cẩn thận ở local, rồi mới giao phần implementation dài hơn cho môi trường chạy song song nếu phù hợp. Ý chính ở đây là **nghĩ kỹ trước, chạy mạnh sau**.
+
+## Với task nhỏ, hãy giữ vòng lặp thật ngắn
+
+Ngược lại, không nên bắt một việc nhỏ đi qua quy trình quá nặng.
+
+Ví dụ giao diện:
+
+1. đề nghị 2-3 hướng chỉnh
+2. chọn một hướng
+3. sửa một vùng cụ thể
+4. xem kết quả
+5. tinh chỉnh tiếp
+
+OpenAI cũng mô tả kiểu lặp ngắn này cho UI: thiết kế, chỉnh, refresh, rồi chỉnh tiếp bằng những prompt nhỏ và cụ thể.
+
+Nếu bạn bắt agent lập kế hoạch quá sâu cho một đổi text hoặc chỉnh khoảng trắng đơn giản, chi phí suy nghĩ sẽ vượt lợi ích.
+
+## Một bảng chọn nhanh cho người mới
+
+### Nên giao nhanh
+
+- đổi text, đổi màu, đổi spacing
+- thêm test cho function nhỏ
+- sửa một lỗi tái hiện rõ ràng với bước reproduce cụ thể
+- cập nhật tài liệu trong phạm vi hẹp
+
+### Nên lên plan trước
+
+- refactor module
+- thay auth flow
+- thêm tính năng chạm nhiều route hoặc nhiều lớp dữ liệu
+- sửa bug không ổn định, khó tái hiện, hoặc chưa rõ nguyên nhân
+- bất kỳ việc nào cần hỏi "nếu làm theo hướng A thì ảnh hưởng phần B không?"
+
+## Prompt mẫu cho hai kiểu
+
+### Mẫu cho task nhỏ
+
+```text
+Sửa layout của thẻ sản phẩm trong ProductCard.
+Chỉ chỉnh spacing và typography, không đổi nội dung text.
+Sau khi sửa, chạy build và báo lại điều đã đổi.
+```
+
+### Mẫu cho task cần planning
+
+```text
+Mình cần refactor flow đăng nhập để chuẩn bị thêm OAuth.
+Trước tiên hãy đọc code liên quan và đưa ra plan ngắn:
+- file có thể ảnh hưởng
+- rủi ro chính
+- các bước thực hiện
+- cách verify
+Chưa sửa code cho tới khi plan rõ.
+```
+
+## Một sai lầm đáng tránh
+
+Đừng bật chế độ nhanh chỉ vì bạn đang vội.
+
+Nhanh chỉ đáng giá khi bài toán thực sự nhỏ. Nếu task lớn mà bạn ép nó đi nhanh, bạn thường chỉ đang đổi "thời gian suy nghĩ" thành "thời gian dọn hậu quả".
+
+## Kết luận
+
+Best practice ở đây rất đơn giản:
+
+- việc nhỏ: giao nhỏ, verify nhanh
+- việc lớn: plan trước, sửa sau
+
+Người mới không cần học thêm một framework phức tạp nào cả. Chỉ cần quen với việc **chọn đúng nhịp làm việc cho đúng loại task**.
+
+Làm được điều đó, bạn sẽ thấy agent bớt lúc quá chậm, lúc quá liều.
+
+## Tài liệu tham khảo
+
+- [Common workflows - Claude Code Docs](https://code.claude.com/docs/en/tutorials)
+- [Getting Started with Google Antigravity - Google Codelabs](https://codelabs.developers.google.com/getting-started-google-antigravity)
+- [Workflows - Codex | OpenAI Developers](https://developers.openai.com/codex/workflows)

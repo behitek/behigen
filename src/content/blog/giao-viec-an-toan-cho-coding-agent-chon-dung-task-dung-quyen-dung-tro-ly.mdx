@@ -1,0 +1,165 @@
+---
+title: "Giao việc an toàn cho coding agent: chọn đúng task, đúng quyền, đúng trợ lý"
+description: "Cách giao task cho coding agent ít rủi ro hơn: scope rõ, quyền vừa đủ, và dùng subagent hoặc custom agent khi thật sự cần."
+pubDate: 2026-03-26
+tags:
+  - delegation
+  - subagents
+  - safety
+category: delegation
+featured: false
+relatedProducts: []
+sourceLabel: GitHub
+sourceUrl: https://docs.github.com/en/copilot/tutorials/coding-agent/get-the-best-results
+thumbnail: /blog/safe-delegation.jpg
+---
+
+Một coding agent không nguy hiểm nhất khi nó viết code nhanh. Nó nguy hiểm nhất khi bạn giao **sai loại việc**, cấp **quá nhiều quyền**, rồi gần như không theo dõi nó đang làm gì.
+
+Người mới rất hay nghĩ vấn đề nằm ở model. Nhưng nhiều lỗi thực tế lại đến từ cách giao việc:
+
+- task quá mơ hồ
+- task quá rộng
+- task quá nhạy cảm
+- agent có quá nhiều tool không cần thiết
+- không có chuyên môn hóa cho việc lặp đi lặp lại
+
+Best practice ở đây là: **giao đúng việc cho đúng loại agent, với đúng mức quyền cần thiết**.
+
+## 1. Không phải task nào cũng nên giao cho agent
+
+GitHub liệt kê khá rõ những kiểu việc coding agent thường làm tốt trước: fix bug, thay đổi UI, cải thiện test coverage, cập nhật docs, accessibility, hoặc technical debt ở mức vừa phải.
+
+Ngược lại, bạn nên giữ con người làm chính ở những nhóm như:
+
+- task quá rộng và nhiều ngữ cảnh
+- task cần kiến thức domain sâu
+- logic business nhạy cảm
+- production-critical issues
+- security, PII, incident response
+- việc mơ hồ, chưa rõ yêu cầu
+- việc bạn muốn tự học để hiểu sâu hơn
+
+Đây là một nguyên tắc rất đáng nhớ cho người mới: **agent không phải nơi tốt nhất để khám phá một bài toán mà chính bạn còn chưa định nghĩa được**.
+
+## 2. Task tốt cho agent thường có 5 đặc điểm
+
+Trước khi giao việc, hãy tự hỏi task này có đủ các điểm sau không:
+
+1. Có mô tả rõ vấn đề cần giải quyết
+2. Có acceptance criteria đủ cụ thể
+3. Có file hoặc vùng code liên quan nếu biết
+4. Có thể verify bằng test, build, hoặc repro
+5. Nếu sai thì phạm vi hậu quả vẫn kiểm soát được
+
+GitHub còn chỉ ra rằng một task rõ, có acceptance criteria và có hướng dẫn file cần sửa thường cho kết quả tốt hơn hẳn.
+
+Nếu thiếu 2-3 điểm trong danh sách trên, đừng giao thẳng. Hãy làm rõ trước.
+
+## 3. Quyền càng nhiều, rủi ro càng lớn
+
+Google Antigravity mô tả rất trực diện các chính sách về terminal execution, review policy và browser JavaScript execution. Ý chính rất đơn giản: càng tự động nhiều, tốc độ có thể tăng, nhưng bề mặt rủi ro cũng tăng theo.
+
+Với người mới, cấu hình an toàn hơn thường là:
+
+- terminal cần review trước
+- artifact quan trọng nên có review
+- chỉ bật những khả năng browser hoặc tool thật sự cần
+
+Nếu task chỉ cần đọc code và đề xuất plan, không cần cấp quyền sửa hoặc chạy quá rộng. Nếu task là review test, không nhất thiết phải cho nó đầy đủ mọi tool.
+
+Nguyên tắc tối thiểu là: **cho đủ để làm việc, không cho dư vì tiện**.
+
+## 4. Subagent và custom agent chỉ hữu ích khi vai trò lặp lại
+
+Anthropic mô tả rất rõ khái niệm specialized subagents. GitHub cũng tách bạch giữa custom instructions và custom agents: instructions giúp định hướng hành vi chung, còn custom agents là những trợ lý chuyên trách với tool và vai trò riêng.
+
+Điều này rất hợp lý khi bạn có các việc lặp đi lặp lại như:
+
+- review security
+- viết test
+- cập nhật docs
+- kiểm tra accessibility
+- review API design
+
+Ví dụ một custom agent tốt có thể là:
+
+- testing specialist
+- documentation expert
+- code reviewer
+- Python specialist
+
+Nhưng nếu bạn mới dùng agent 1-2 tuần, đừng vội tạo quá nhiều vai trò. Hãy chỉ tạo khi bạn thấy một kiểu việc lặp lại đủ thường xuyên và cần hành vi ổn định.
+
+## 5. Hạn chế tool access cho từng vai trò
+
+Đây là chỗ nhiều người bỏ qua.
+
+Anthropic khuyên nên giới hạn tool access đúng với nhu cầu của từng subagent. GitHub cũng nhấn mạnh custom agents có thể có cấu hình tool riêng.
+
+Ví dụ:
+
+- agent chuyên review test không cần quyền đổi production config
+- agent chuyên docs không cần tool thao tác deployment
+- agent chuyên security review có thể chỉ cần đọc, search và comment
+
+Khi vai trò rõ và tool gọn, agent dễ làm đúng việc hơn và xác suất tạo thay đổi ngoài ý muốn cũng giảm.
+
+## 6. Cho agent môi trường xác thực tử tế
+
+GitHub có một điểm rất thực tế: nếu agent có đủ dependencies và môi trường phù hợp để build, test, validate, nó sẽ cho pull request tốt hơn.
+
+Ngược lại, nếu agent phải tự mò cài từng thứ trong môi trường tạm bằng trial and error, chất lượng và tốc độ đều giảm.
+
+Với người mới, bài học rút ra là:
+
+- đừng chỉ giao code, hãy giao cả cách verify
+- nếu hệ thống cần setup đặc biệt, hãy ghi vào instructions
+- nếu có thể, chuẩn bị sẵn môi trường hoặc steps cơ bản
+
+Agent mạnh hơn nhiều khi nó không phải đoán cách chạy project.
+
+## 7. Theo dõi phiên làm việc, đừng chỉ chờ kết quả cuối
+
+GitHub có tài liệu riêng về session logs để hiểu agent đang tiếp cận bài toán như thế nào. Đây là thói quen rất tốt khi task bắt đầu dài hơn hoặc có rủi ro cao hơn.
+
+Bạn không cần soi từng dòng log, nhưng nên đủ để trả lời:
+
+- nó đang làm đúng scope không
+- nó có mắc kẹt ở setup không
+- nó có đang sửa vào vùng nhạy cảm không
+
+Theo dõi giữa chừng thường rẻ hơn sửa hậu quả ở cuối.
+
+## Một bộ câu hỏi nên tự check trước khi giao task
+
+Trước khi bấm gửi, hãy hỏi nhanh:
+
+1. Task này có đủ rõ để người khác trong team làm được không?
+2. Nếu agent làm sai, hậu quả có nằm trong phạm vi kiểm soát không?
+3. Agent này có cần mọi tool hiện có không, hay chỉ cần một phần?
+4. Đây có phải loại việc lặp lại đủ nhiều để đáng tạo subagent hoặc custom agent không?
+5. Mình đã nói rõ cách verify chưa?
+
+Nếu 3 câu đầu chưa ổn, tốt nhất chưa nên giao thẳng.
+
+## Kết luận
+
+Giao việc an toàn cho coding agent không phải là bó tay nó lại. Mà là:
+
+- chọn đúng loại task
+- mô tả scope đủ rõ
+- cấp quyền vừa đủ
+- chuyên môn hóa khi có lợi thật sự
+- theo dõi và verify đúng mức
+
+Khi người mới gặp sự cố với agent, nguyên nhân rất thường không nằm ở "AI ngu", mà nằm ở việc giao một bài toán sai hình dạng cho sai mức quyền.
+
+Chỉnh lại đúng 5 điểm trên, trải nghiệm thường đổi hẳn.
+
+## Tài liệu tham khảo
+
+- [Best practices for using GitHub Copilot to work on tasks](https://docs.github.com/en/copilot/tutorials/coding-agent/get-the-best-results)
+- [Common workflows - Claude Code Docs](https://code.claude.com/docs/en/tutorials)
+- [Getting Started with Google Antigravity - Google Codelabs](https://codelabs.developers.google.com/getting-started-google-antigravity)
+- [Tracking GitHub Copilot's sessions - GitHub Docs](https://docs.github.com/copilot/how-tos/agents/copilot-coding-agent/tracking-copilots-sessions)

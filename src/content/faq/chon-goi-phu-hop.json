@@ -1,0 +1,16 @@
+{
+  "group": "Chọn gói phù hợp",
+  "description": "Gợi ý nhanh để tránh mua dư hoặc thiếu nhu cầu.",
+  "groupSlug": "chon-goi-phu-hop",
+  "order": 5,
+  "items": [
+    {
+      "question": "Nên chọn ChatGPT Plus hay Google AI trước?",
+      "answer": "Nếu bạn chủ yếu cần chat AI và coding, hãy bắt đầu từ ChatGPT Plus. Nếu bạn cần thêm Drive, Photos và hệ Google, ưu tiên Google AI Pro hoặc Premium."
+    },
+    {
+      "question": "Khi nào nên chọn Google AI Ultra?",
+      "answer": "Khi bạn thực sự cần tier Google cao nhất và dung lượng lưu trữ rất lớn. Nếu không, AI Pro hoặc Premium thường kinh tế hơn."
+    }
+  ]
+}

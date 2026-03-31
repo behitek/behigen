@@ -1,0 +1,20 @@
+---
+const { groups } = Astro.props;
+---
+
+<div class="grid gap-6 lg:grid-cols-3">
+  {groups.map((group: any) => (
+    <section class="rounded-[2rem] border border-slate-200 bg-white p-6">
+      <h3 class="text-xl font-black text-slate-950">{group.data.group}</h3>
+      <p class="mt-2 text-sm leading-6 text-slate-600">{group.data.description}</p>
+      <div class="mt-4 space-y-4">
+        {group.data.items.slice(0, 2).map((item: any) => (
+          <article>
+            <h4 class="font-semibold text-slate-950">{item.question}</h4>
+            <p class="mt-2 text-sm leading-6 text-slate-600">{item.answer}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+</div>

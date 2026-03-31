@@ -1,0 +1,16 @@
+{
+  "group": "Bảo hành và gia hạn",
+  "description": "Cách hiểu đúng về thời hạn dùng và thời gian bảo hành.",
+  "groupSlug": "bao-hanh-va-gia-han",
+  "order": 2,
+  "items": [
+    {
+      "question": "Bảo hành có giống với thời hạn sử dụng không?",
+      "answer": "Không. Thời hạn sử dụng là thời gian của gói, còn bảo hành là thời gian hỗ trợ xử lý nếu có vấn đề nằm trong phạm vi cam kết."
+    },
+    {
+      "question": "Có hỗ trợ gia hạn khi gần hết hạn không?",
+      "answer": "Có thể, nhưng bạn nên nhắn trước để kiểm tra tình trạng gói và mức giá tại thời điểm gia hạn."
+    }
+  ]
+}

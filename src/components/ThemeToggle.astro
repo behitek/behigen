@@ -1,0 +1,25 @@
+<button
+  type="button"
+  id="theme-toggle"
+  class="rounded-full border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-cyan-500 hover:text-cyan-700"
+  aria-label="Đổi giao diện"
+>
+  Theme
+</button>
+
+<script>
+  const storageKey = 'behigen-theme';
+  const root = document.documentElement;
+  const button = document.querySelector('#theme-toggle');
+  const current = localStorage.getItem(storageKey);
+
+  if (current === 'dark') {
+    root.dataset.theme = 'dark';
+  }
+
+  button?.addEventListener('click', () => {
+    const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = nextTheme === 'light' ? '' : nextTheme;
+    localStorage.setItem(storageKey, nextTheme);
+  });
+</script>

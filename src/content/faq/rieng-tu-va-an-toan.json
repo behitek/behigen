@@ -1,0 +1,16 @@
+{
+  "group": "Riêng tư và an toàn",
+  "description": "Các kỳ vọng thực tế về quyền riêng tư khi sử dụng tài khoản AI.",
+  "groupSlug": "rieng-tu-va-an-toan",
+  "order": 4,
+  "items": [
+    {
+      "question": "Có nên đưa dữ liệu nhạy cảm vào AI không?",
+      "answer": "Không nên. Dù dùng gói nào, bạn vẫn cần tự bảo vệ dữ liệu nhạy cảm và chỉ đưa vào những nội dung phù hợp."
+    },
+    {
+      "question": "Có lời khuyên nào để dùng an toàn hơn?",
+      "answer": "Nên đổi mật khẩu khi cần, bật các lớp bảo mật phù hợp và tránh chia sẻ thông tin cá nhân hoặc thông tin công việc quan trọng qua prompt."
+    }
+  ]
+}
