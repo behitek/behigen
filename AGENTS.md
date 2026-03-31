@@ -22,4 +22,4 @@ This repository currently has no commit history, so no house style is establishe
 
 ## Configuration Tips
 
-Local contact flows rely on `PUBLIC_ZALO_URL`, `PUBLIC_TELEGRAM_URL`, and `PUBLIC_MESSENGER_URL` from Astro env vars. Keep links `BASE_URL`-aware when adding new routes or cards so local dev and deployed builds behave the same.
+Keep links `BASE_URL`-aware when adding new routes or cards so local dev and deployed builds behave the same.
