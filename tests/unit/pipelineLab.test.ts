@@ -1,37 +1,41 @@
-import { describe, expect, it } from 'vitest';
-import { buildPipelineLabState } from '../../src/utils/pipelineLab';
+import { describe, expect, it } from "vitest";
+import { buildPipelineLabState } from "../../src/utils/pipelineLab";
 
-describe('buildPipelineLabState', () => {
-  it('uses the direct path for a low-risk explanation request with no fresh-data need', () => {
+describe("buildPipelineLabState", () => {
+  it("uses the direct path for a low-risk explanation request with no fresh-data need", () => {
     const state = buildPipelineLabState({
-      requestType: 'explain',
+      requestType: "explain",
       hasToolAccess: false,
       needsFreshInfo: false,
-      riskLevel: 'low'
+      riskLevel: "low",
     });
 
-    expect(state.route).toBe('Trả lời trực tiếp từ prompt và kiến thức ổn định');
+    expect(state.route).toBe(
+      "Trả lời trực tiếp từ prompt và kiến thức ổn định",
+    );
   });
 
-  it('uses the tool path when the request needs fresh information and tools exist', () => {
+  it("uses the tool path when the request needs fresh information and tools exist", () => {
     const state = buildPipelineLabState({
-      requestType: 'search',
+      requestType: "search",
       hasToolAccess: true,
       needsFreshInfo: true,
-      riskLevel: 'medium'
+      riskLevel: "medium",
     });
 
-    expect(state.route).toBe('Model yêu cầu tool -> ứng dụng chạy tool -> model trả lời');
+    expect(state.route).toBe(
+      "Model yêu cầu tool -> ứng dụng chạy tool -> model trả lời",
+    );
   });
 
-  it('uses the careful path for high-risk requests even when no tool is needed', () => {
+  it("uses the careful path for high-risk requests even when no tool is needed", () => {
     const state = buildPipelineLabState({
-      requestType: 'advice',
+      requestType: "advice",
       hasToolAccess: false,
       needsFreshInfo: false,
-      riskLevel: 'high'
+      riskLevel: "high",
     });
 
-    expect(state.route).toBe('Luồng trả lời có kiểm tra an toàn');
+    expect(state.route).toBe("Luồng trả lời có kiểm tra an toàn");
   });
 });

@@ -1,8 +1,8 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, z } from "astro:content";
 
 const productSchema = z.object({
   slug: z.string(),
-  category: z.enum(['google', 'chatgpt']),
+  category: z.enum(["google", "chatgpt"]),
   name: z.string(),
   variant: z.string(),
   tagline: z.string(),
@@ -19,15 +19,15 @@ const productSchema = z.object({
   faqs: z.array(
     z.object({
       question: z.string(),
-      answer: z.string()
-    })
+      answer: z.string(),
+    }),
   ),
   seoTitle: z.string(),
-  seoDescription: z.string()
+  seoDescription: z.string(),
 });
 
 const blog = defineCollection({
-  type: 'content',
+  type: "content",
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -39,12 +39,12 @@ const blog = defineCollection({
     relatedProducts: z.array(z.string()).default([]),
     sourceLabel: z.string().optional(),
     sourceUrl: z.string().url().optional(),
-    thumbnail: z.string().optional()
-  })
+    thumbnail: z.string().optional(),
+  }),
 });
 
 const faq = defineCollection({
-  type: 'data',
+  type: "data",
   schema: z.object({
     group: z.string(),
     description: z.string(),
@@ -53,29 +53,29 @@ const faq = defineCollection({
     items: z.array(
       z.object({
         question: z.string(),
-        answer: z.string()
-      })
-    )
-  })
+        answer: z.string(),
+      }),
+    ),
+  }),
 });
 
 const toolSchema = z.object({
   slug: z.string(),
   title: z.string(),
   description: z.string(),
-  toolType: z.enum(['practical', 'lab']),
+  toolType: z.enum(["practical", "lab"]),
   featured: z.boolean().default(false),
   estimatedMinutes: z.number().int().positive(),
-  level: z.enum(['beginner', 'intermediate']),
+  level: z.enum(["beginner", "intermediate"]),
   stepCount: z.number().int().positive(),
   learningOutcomes: z.array(z.string()).min(2),
   relatedProducts: z.array(z.string()).default([]),
-  relatedPosts: z.array(z.string()).default([])
+  relatedPosts: z.array(z.string()).default([]),
 });
 
 export const collections = {
   blog,
   faq,
-  products: defineCollection({ type: 'data', schema: productSchema }),
-  tools: defineCollection({ type: 'data', schema: toolSchema })
+  products: defineCollection({ type: "data", schema: productSchema }),
+  tools: defineCollection({ type: "data", schema: toolSchema }),
 };
