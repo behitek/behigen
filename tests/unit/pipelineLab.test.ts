@@ -10,7 +10,7 @@ describe('buildPipelineLabState', () => {
       riskLevel: 'low'
     });
 
-    expect(state.route).toBe('direct');
+    expect(state.route).toBe('Trả lời trực tiếp từ prompt và kiến thức ổn định');
   });
 
   it('uses the tool path when the request needs fresh information and tools exist', () => {
@@ -21,7 +21,7 @@ describe('buildPipelineLabState', () => {
       riskLevel: 'medium'
     });
 
-    expect(state.route).toBe('tool');
+    expect(state.route).toBe('Model yêu cầu tool -> ứng dụng chạy tool -> model trả lời');
   });
 
   it('uses the careful path for high-risk requests even when no tool is needed', () => {
@@ -32,6 +32,6 @@ describe('buildPipelineLabState', () => {
       riskLevel: 'high'
     });
 
-    expect(state.route).toBe('careful');
+    expect(state.route).toBe('Luồng trả lời có kiểm tra an toàn');
   });
 });

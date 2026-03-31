@@ -8,7 +8,7 @@ export interface SkillFinderControls {
 }
 
 export interface SkillFinderState {
-  workflow: 'direct-execution' | 'systematic-debugging' | 'brainstorming' | 'writing-plans';
+  workflow: string;
   reason: string;
   improvementTip: string;
 }
@@ -16,32 +16,32 @@ export interface SkillFinderState {
 export function buildSkillFinderState(controls: SkillFinderControls): SkillFinderState {
   if (controls.taskType === 'bug-fix') {
     return {
-      workflow: 'systematic-debugging',
+      workflow: 'Debug theo repo và test',
       reason:
-        'Bug tasks benefit from reproducing the issue and tightening the fix before editing code.',
-      improvementTip: 'Đưa lỗi tái hiện được và test thất bại để agent đi đúng luồng debug.'
+        'Với bug, workflow tốt thường bắt đầu từ repro và test hỏng trước khi sửa. Repo instructions và test harness quyết định agent được dùng cách nào.',
+      improvementTip: 'Đưa steps tái hiện, log liên quan và lệnh test đang hỏng để agent vào đúng luồng debug.'
     };
   }
 
   if (controls.isVisual) {
     return {
-      workflow: 'brainstorming',
-      reason: 'Visual or UX work needs design clarification before implementation.',
-      improvementTip: 'Nói rõ đối tượng, mục tiêu, và phong cách để agent không tự đoán UI.'
+      workflow: 'Chốt hướng thiết kế trước rồi mới code',
+      reason: 'UI hoặc UX work thường nên chốt hướng thiết kế trước khi code. Chính sách review, design system và repo rules có thể đổi cách làm chi tiết.',
+      improvementTip: 'Nói rõ đối tượng, mục tiêu, ràng buộc và phong cách để agent không phải tự đoán giao diện.'
     };
   }
 
   if (controls.isAmbiguous || controls.isRisky || !controls.hasInstructions) {
     return {
-      workflow: 'writing-plans',
-      reason: 'Ambiguous or high-risk work needs explicit planning and scoping before code changes.',
-      improvementTip: 'Bổ sung scope, tiêu chí hoàn thành, và file liên quan để agent giảm đoán.'
+      workflow: 'Đọc rules của repo rồi viết plan',
+      reason: 'Khi task mơ hồ, rủi ro hoặc thiếu instructions, agent đáng tin nên đọc tín hiệu repo, làm rõ scope rồi mới chạm code.',
+      improvementTip: 'Bổ sung scope, tiêu chí hoàn thành, file nghi ngờ và lệnh verify để agent giảm đoán đáng kể.'
     };
   }
 
   return {
-    workflow: 'direct-execution',
-    reason: 'The task is small, clear, and low-risk enough to execute directly.',
-    improvementTip: 'Giữ task ngắn, rõ file, và nêu lệnh test để agent xử lý nhanh hơn.'
+    workflow: 'Thực thi trực tiếp nhưng vẫn theo rules của repo',
+    reason: 'Task nhỏ và rõ có thể làm trực tiếp, nhưng agent tốt vẫn đọc repo instructions trước nếu có thay vì coi đó là luật chung cho mọi dự án.',
+    improvementTip: 'Giữ task ngắn, nêu rõ file, expected behavior và lệnh test để agent xử lý nhanh và ít vòng lặp hơn.'
   };
 }

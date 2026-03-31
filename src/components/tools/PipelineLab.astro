@@ -16,7 +16,7 @@ const { tool } = Astro.props;
   title={tool.title}
   description={tool.description}
   estimatedMinutes={tool.estimatedMinutes}
-  stepLabels={['Chọn dạng yêu cầu', 'Phân loại intent', 'Mở hoặc tắt tool', 'Theo dõi route', 'So sánh output', 'Rút ra kết luận']}
+  stepLabels={['Chọn dạng yêu cầu', 'Phân loại task', 'Quyết định có gọi tool không', 'Theo dõi vòng lặp', 'So sánh đường đi', 'Rút ra kết luận']}
 >
   <div data-pipeline-lab class="rounded-[2rem] border border-slate-200 bg-white p-6">
     <div class="grid gap-6 lg:grid-cols-[0.42fr_0.58fr]">
@@ -85,7 +85,7 @@ const { tool } = Astro.props;
           riskLevel: requestType.value === 'advice' ? 'high' : 'medium'
         });
 
-        route.textContent = `Route: ${state.route}`;
+        route.textContent = state.route;
         takeaway.textContent = state.takeaway;
         layers.innerHTML = state.visibleLayers.map((layer) => `<li>${layer}</li>`).join('');
       };

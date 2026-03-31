@@ -11,6 +11,7 @@ interface Props {
 const { tool } = Astro.props;
 const defaultResult = getAiPackageQuizResult({
   primaryNeed: 'google',
+  needsGoogleStorage: true,
   googleUseCase: 'balanced',
   needsFamilyMembers: true,
   needsOwnerControl: true,
@@ -28,26 +29,67 @@ const defaultResult = getAiPackageQuizResult({
 
   <div class="mt-10 grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
     <form class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm" data-quiz-form>
-      <label class="block text-sm font-semibold text-slate-900" for="primaryNeed">Nhu cầu chính</label>
+      <div class="rounded-3xl border border-cyan-100 bg-cyan-50/60 p-4">
+        <p class="text-sm font-semibold text-cyan-800">Cách đọc nhanh</p>
+        <p class="mt-1 text-sm leading-6 text-slate-600">
+          Quiz này không ép một đáp án duy nhất. Nếu bạn cần cả coding lẫn storage, kết quả sẽ nói thẳng khi nào nên tách ra 2 gói.
+        </p>
+      </div>
+
+      <label class="mt-6 block text-sm font-semibold text-slate-900" for="primaryNeed">1. Mục tiêu chính của bạn là gì?</label>
       <select id="primaryNeed" name="primaryNeed" class="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3">
-        <option value="google">Google: cần storage, Drive, Photos hoặc family</option>
-        <option value="coding">ChatGPT / coding agent: cần code và chat AI</option>
+        <option value="google">Tôi ưu tiên storage, Drive, Photos hoặc family</option>
+        <option value="coding">Tôi ưu tiên coding, debug và chat AI</option>
       </select>
+      <p class="mt-2 text-sm leading-6 text-slate-500">
+        Câu này chọn hướng chính, không khóa bạn vào chỉ một sản phẩm.
+      </p>
 
-      <label class="mt-5 block text-sm font-semibold text-slate-900" for="googleUseCase">Bạn nghiêng về</label>
-      <select id="googleUseCase" name="googleUseCase" class="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3">
-        <option value="balanced">Cân bằng AI và storage</option>
-        <option value="storage">Ưu tiên storage dài hạn</option>
-        <option value="ultra">Cần tier Google và storage rất cao</option>
+      <label class="mt-5 block text-sm font-semibold text-slate-900" for="needsGoogleStorage">
+        2. Bạn có còn cần storage / Drive / family của Google không?
+      </label>
+      <select
+        id="needsGoogleStorage"
+        name="needsGoogleStorage"
+        class="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3"
+      >
+        <option value="yes">Có, đó vẫn là một nhu cầu thật</option>
+        <option value="no">Không, tôi chỉ cần AI/chat/coding</option>
       </select>
+      <p class="mt-2 text-sm leading-6 text-slate-500">
+        Nếu bạn trả lời “có”, quiz sẽ cân nhắc khả năng nên mua cả ChatGPT lẫn Google.
+      </p>
 
-      <label class="mt-5 block text-sm font-semibold text-slate-900" for="needsOwnerControl">Có cần tự quản lý family không?</label>
-      <select id="needsOwnerControl" name="needsOwnerControl" class="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3">
-        <option value="yes">Có, tôi cần full quyền family</option>
-        <option value="no">Không, chỉ cần tham gia hoặc dùng một mình</option>
-      </select>
+      <div class="mt-5 space-y-5" data-google-followup>
+        <div>
+          <label class="block text-sm font-semibold text-slate-900" for="googleUseCase">
+            3. Nếu dùng Google, bạn nghiêng về mức nào?
+          </label>
+          <select id="googleUseCase" name="googleUseCase" class="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3">
+            <option value="balanced">Cân bằng AI và storage cơ bản</option>
+            <option value="storage">Ưu tiên storage dài hạn / nhiều file</option>
+            <option value="ultra">Cần tier Google và storage rất cao</option>
+          </select>
+        </div>
 
-      <label class="mt-5 block text-sm font-semibold text-slate-900" for="hasExistingChatGptAccount">Bạn đã có tài khoản ChatGPT cần gia hạn chưa?</label>
+        <div>
+          <label class="block text-sm font-semibold text-slate-900" for="needsOwnerControl">
+            4. Bạn có cần tự quản lý family không?
+          </label>
+          <select
+            id="needsOwnerControl"
+            name="needsOwnerControl"
+            class="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3"
+          >
+            <option value="yes">Có, tôi cần full quyền family</option>
+            <option value="no">Không, chỉ cần tham gia hoặc dùng một mình</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="mt-5 block text-sm font-semibold text-slate-900" for="hasExistingChatGptAccount">
+        5. Bạn đã có tài khoản ChatGPT cần gia hạn chưa?
+      </label>
       <select id="hasExistingChatGptAccount" name="hasExistingChatGptAccount" class="mt-2 w-full rounded-2xl border border-slate-300 px-4 py-3">
         <option value="yes">Có, tôi muốn gia hạn tài khoản đang dùng</option>
         <option value="no">Chưa có hoặc không cần giữ tài khoản cũ</option>
@@ -65,17 +107,38 @@ const defaultResult = getAiPackageQuizResult({
       </button>
     </form>
 
-    <article class="rounded-[2rem] border border-slate-200 bg-slate-50 p-6" data-result-card>
-      <p class="text-sm font-semibold uppercase tracking-[0.12em] text-cyan-700">Kết quả</p>
+    <article class="rounded-[2rem] border border-slate-200 bg-slate-50 p-6" data-result-card aria-live="polite">
+      <div class="flex items-center justify-between gap-4">
+        <p class="text-sm font-semibold uppercase tracking-[0.12em] text-cyan-700">Kết quả</p>
+        <span class="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-700" data-result-mode>
+          {defaultResult.mode === 'bundle' ? 'Khuyên mua 2 gói' : 'Khuyên mua 1 gói'}
+        </span>
+      </div>
       <h2 class="mt-3 text-3xl font-black text-slate-950" data-result-heading>{defaultResult.heading}</h2>
       <p class="mt-4 text-base leading-7 text-slate-600" data-result-summary>{defaultResult.summary}</p>
+      <div class="mt-5 rounded-3xl border border-slate-200 bg-white p-4">
+        <p class="text-sm font-semibold text-slate-900">Vì sao quiz chọn như vậy</p>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-600" data-result-reasons>
+          {defaultResult.reasons.map((reason) => <li>{reason}</li>)}
+        </ul>
+      </div>
       <p class="mt-4 text-sm leading-6 text-slate-500" data-result-why>{defaultResult.whyNotOtherPath}</p>
       <a
         class="mt-6 inline-flex rounded-full bg-slate-950 px-5 py-3 font-semibold text-white"
-        data-result-link
-        href={`${import.meta.env.BASE_URL}store/${defaultResult.recommendedSlug}`}
+        data-result-primary-link
+        href={`${import.meta.env.BASE_URL}store/${defaultResult.primaryRecommendation.slug}`}
       >
-        Xem sản phẩm
+        {defaultResult.primaryRecommendation.label}
+      </a>
+      <a
+        class="mt-3 inline-flex rounded-full border border-slate-300 px-5 py-3 font-semibold text-slate-800"
+        data-result-secondary-link
+        hidden={!defaultResult.secondaryRecommendation}
+        href={defaultResult.secondaryRecommendation
+          ? `${import.meta.env.BASE_URL}store/${defaultResult.secondaryRecommendation.slug}`
+          : `${import.meta.env.BASE_URL}store/${defaultResult.primaryRecommendation.slug}`}
+      >
+        {defaultResult.secondaryRecommendation?.label ?? 'Xem thêm lựa chọn'}
       </a>
     </article>
   </div>
@@ -88,32 +151,43 @@ const defaultResult = getAiPackageQuizResult({
 
   if (root instanceof HTMLElement) {
     const primaryNeed = root.querySelector('[name="primaryNeed"]');
+    const needsGoogleStorage = root.querySelector('[name="needsGoogleStorage"]');
     const googleUseCase = root.querySelector('[name="googleUseCase"]');
     const needsFamilyMembers = root.querySelector('[name="needsFamilyMembers"]');
     const needsOwnerControl = root.querySelector('[name="needsOwnerControl"]');
     const wantsLowestPrice = root.querySelector('[name="wantsLowestPrice"]');
     const hasExistingChatGptAccount = root.querySelector('[name="hasExistingChatGptAccount"]');
+    const googleFollowup = root.querySelector('[data-google-followup]');
     const submit = root.querySelector('[data-submit]');
+    const resultMode = root.querySelector('[data-result-mode]');
     const resultHeading = root.querySelector('[data-result-heading]');
     const resultSummary = root.querySelector('[data-result-summary]');
+    const resultReasons = root.querySelector('[data-result-reasons]');
     const resultWhy = root.querySelector('[data-result-why]');
-    const resultLink = root.querySelector('[data-result-link]');
+    const resultPrimaryLink = root.querySelector('[data-result-primary-link]');
+    const resultSecondaryLink = root.querySelector('[data-result-secondary-link]');
 
     if (
       primaryNeed instanceof HTMLSelectElement &&
+      needsGoogleStorage instanceof HTMLSelectElement &&
       googleUseCase instanceof HTMLSelectElement &&
       needsFamilyMembers instanceof HTMLInputElement &&
       needsOwnerControl instanceof HTMLSelectElement &&
       wantsLowestPrice instanceof HTMLInputElement &&
       hasExistingChatGptAccount instanceof HTMLSelectElement &&
+      googleFollowup instanceof HTMLElement &&
       submit instanceof HTMLButtonElement &&
+      resultMode instanceof HTMLElement &&
       resultHeading instanceof HTMLElement &&
       resultSummary instanceof HTMLElement &&
+      resultReasons instanceof HTMLUListElement &&
       resultWhy instanceof HTMLElement &&
-      resultLink instanceof HTMLAnchorElement
+      resultPrimaryLink instanceof HTMLAnchorElement &&
+      resultSecondaryLink instanceof HTMLAnchorElement
     ) {
       const readAnswers = () => ({
         primaryNeed: primaryNeed.value as 'google' | 'coding',
+        needsGoogleStorage: needsGoogleStorage.value === 'yes',
         googleUseCase: googleUseCase.value as 'balanced' | 'storage' | 'ultra',
         needsFamilyMembers: needsFamilyMembers.value === 'yes',
         needsOwnerControl: needsOwnerControl.value === 'yes',
@@ -121,13 +195,43 @@ const defaultResult = getAiPackageQuizResult({
         hasExistingChatGptAccount: hasExistingChatGptAccount.value === 'yes'
       });
 
+      const syncFormVisibility = () => {
+        googleFollowup.hidden = needsGoogleStorage.value !== 'yes';
+      };
+
+      const renderReasons = (reasons: string[]) => {
+        resultReasons.replaceChildren(
+          ...reasons.map((reason) => {
+            const item = document.createElement('li');
+            item.textContent = reason;
+            return item;
+          })
+        );
+      };
+
+      syncFormVisibility();
+      needsGoogleStorage.addEventListener('change', syncFormVisibility);
+
       submit.addEventListener('click', () => {
         const result = getAiPackageQuizResult(readAnswers());
 
+        resultMode.textContent = result.mode === 'bundle' ? 'Khuyên mua 2 gói' : 'Khuyên mua 1 gói';
         resultHeading.textContent = result.heading;
         resultSummary.textContent = result.summary;
+        renderReasons(result.reasons);
         resultWhy.textContent = result.whyNotOtherPath;
-        resultLink.setAttribute('href', `${import.meta.env.BASE_URL}store/${result.recommendedSlug}`);
+        resultPrimaryLink.textContent = result.primaryRecommendation.label;
+        resultPrimaryLink.setAttribute('href', `${import.meta.env.BASE_URL}store/${result.primaryRecommendation.slug}`);
+
+        if (result.secondaryRecommendation) {
+          resultSecondaryLink.hidden = false;
+          resultSecondaryLink.textContent = result.secondaryRecommendation.label;
+          resultSecondaryLink.setAttribute('href', `${import.meta.env.BASE_URL}store/${result.secondaryRecommendation.slug}`);
+        } else {
+          resultSecondaryLink.hidden = true;
+          resultSecondaryLink.textContent = '';
+          resultSecondaryLink.setAttribute('href', `${import.meta.env.BASE_URL}store/${result.primaryRecommendation.slug}`);
+        }
       });
     }
   }

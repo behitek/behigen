@@ -1,16 +1,16 @@
 {
   "slug": "llm-xu-ly-input-output-tool-va-thinking-ra-sao",
-  "title": "LLM xử lý input, output, tool và thinking ra sao",
-  "description": "Mô phỏng luồng xử lý từ input tới câu trả lời để thấy lúc nào model trả lời trực tiếp, lúc nào cần tool, và thinking nằm ở đâu.",
+  "title": "LLM đi từ input tới câu trả lời như thế nào",
+  "description": "Mô phỏng luồng app-model-tool từ input tới câu trả lời để thấy khi nào model trả lời trực tiếp, khi nào ứng dụng phải chạy tool, và reasoning thường chỉ lộ ra một phần.",
   "toolType": "lab",
   "featured": true,
   "estimatedMinutes": 14,
   "level": "beginner",
   "stepCount": 6,
   "learningOutcomes": [
-    "Hiểu mô hình phân loại yêu cầu",
-    "Hiểu lúc nào tool trở nên cần thiết",
-    "Phân biệt output nhìn thấy với reasoning nội bộ"
+    "Hiểu bước phân loại yêu cầu trước khi trả lời",
+    "Hiểu tool use là vòng lặp giữa model và ứng dụng, không phải một bước nội bộ duy nhất",
+    "Phân biệt câu trả lời nhìn thấy với reasoning nội bộ vốn thường không được lộ nguyên văn"
   ],
   "relatedProducts": [],
   "relatedPosts": []

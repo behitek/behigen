@@ -7,14 +7,14 @@ export interface TokenLabControls {
 
 export interface TokenLabState {
   usedTokens: number;
-  remainingTokens: number;
-  overflowTokens: number;
+  capacityPercent: number;
   status: 'healthy' | 'tight' | 'overflow';
   segments: Array<{ label: string; tokens: number }>;
   takeaway: string;
+  note: string;
 }
 
-const CONTEXT_LIMIT = 8192;
+const DEMO_CONTEXT_LIMIT = 12000;
 
 export function buildTokenLabState(controls: TokenLabControls): TokenLabState {
   const baseInput = {
@@ -39,14 +39,12 @@ export function buildTokenLabState(controls: TokenLabControls): TokenLabState {
   const historyTokens = controls.historyTurns * 380;
   const inputTokens = Math.round(baseInput * contentMultiplier);
   const usedTokens = 250 + inputTokens + historyTokens + outputTokens;
-  const overflowTokens = Math.max(0, usedTokens - CONTEXT_LIMIT);
-  const remainingTokens = Math.max(0, CONTEXT_LIMIT - usedTokens);
-  const status = overflowTokens > 0 ? 'overflow' : remainingTokens < 1200 ? 'tight' : 'healthy';
+  const capacityPercent = Math.min(100, Math.round((usedTokens / DEMO_CONTEXT_LIMIT) * 100));
+  const status = capacityPercent >= 100 ? 'overflow' : capacityPercent >= 82 ? 'tight' : 'healthy';
 
   return {
     usedTokens,
-    remainingTokens,
-    overflowTokens,
+    capacityPercent,
     status,
     segments: [
       { label: 'System', tokens: 250 },
@@ -56,9 +54,11 @@ export function buildTokenLabState(controls: TokenLabControls): TokenLabState {
     ],
     takeaway:
       status === 'overflow'
-        ? 'Prompt đã vượt context window nên hệ thống phải cắt bớt hoặc bỏ ngữ cảnh cũ.'
+        ? 'Trên thang mô phỏng này, prompt đã quá chật. Ngoài đời thật, ứng dụng có thể cắt bớt lịch sử, nén bối cảnh hoặc từ chối tùy model.'
         : status === 'tight'
-          ? 'Prompt vẫn chạy được nhưng khoảng trống cho output và ngữ cảnh bổ sung đang khá chật.'
-          : 'Prompt còn nhiều khoảng trống nên model có dư địa để trả lời đầy đủ hơn.'
+          ? 'Prompt vẫn chạy được nhưng vùng dành cho output và ngữ cảnh bổ sung đang khá chật.'
+          : 'Prompt còn dư địa nên model có nhiều chỗ hơn cho output và ngữ cảnh đi kèm.',
+    note:
+      'Thanh đo này là mô phỏng tương đối, không phải giới hạn chung cho mọi model. Tài liệu hiện tại của các nhà cung cấp cho thấy context có thể dao động từ hàng chục nghìn token đến hàng trăm nghìn hoặc hơn 1 triệu token.'
   };
 }

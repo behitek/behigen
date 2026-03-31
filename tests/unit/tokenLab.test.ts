@@ -11,7 +11,8 @@ describe('buildTokenLabState', () => {
     });
 
     expect(state.status).toBe('healthy');
-    expect(state.overflowTokens).toBe(0);
+    expect(state.capacityPercent).toBeGreaterThan(0);
+    expect(state.capacityPercent).toBeLessThan(82);
   });
 
   it('marks long prompts as overflow when usage exceeds the context budget', () => {
@@ -23,6 +24,6 @@ describe('buildTokenLabState', () => {
     });
 
     expect(state.status).toBe('overflow');
-    expect(state.overflowTokens).toBeGreaterThan(0);
+    expect(state.capacityPercent).toBe(100);
   });
 });

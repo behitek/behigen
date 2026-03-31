@@ -1,16 +1,16 @@
 {
   "slug": "coding-agent-tim-dung-skill-nhu-the-nao",
   "title": "Coding agent tìm đúng skill như thế nào",
-  "description": "Mô phỏng cách coding agent chọn workflow và skill dựa trên scope task, instructions, test và mức độ rủi ro.",
+  "description": "Mô phỏng cách coding agent chọn workflow dựa trên task, repo instructions, test và mức độ mơ hồ. Đây là ví dụ theo kiểu repo-driven, không phải luật chung cho mọi agent.",
   "toolType": "lab",
   "featured": true,
   "estimatedMinutes": 15,
   "level": "intermediate",
   "stepCount": 6,
   "learningOutcomes": [
-    "Hiểu vì sao context repo làm đổi workflow",
-    "Hiểu khi nào agent nên plan thay vì code ngay",
-    "Biết cách mô tả task để agent chọn đúng skill hơn"
+    "Hiểu vì sao repo instructions có thể đổi hẳn workflow của agent",
+    "Hiểu khi nào agent nên làm rõ hoặc viết plan thay vì code ngay",
+    "Biết cách mô tả task, repro và test để agent chọn workflow phù hợp hơn"
   ],
   "relatedProducts": [],
   "relatedPosts": []

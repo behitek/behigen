@@ -1,7 +1,7 @@
 {
   "slug": "token-hoat-dong-nhu-the-nao",
   "title": "Token hoạt động như thế nào",
-  "description": "Mô phỏng cách prompt bị chia thành token, cách context window đầy lên, và vì sao prompt dài làm tăng chi phí.",
+  "description": "Mô phỏng tokenization, lịch sử hội thoại và vùng dành cho output để thấy vì sao chi phí và áp lực context thay đổi theo model.",
   "toolType": "lab",
   "featured": true,
   "estimatedMinutes": 12,
@@ -9,8 +9,8 @@
   "stepCount": 6,
   "learningOutcomes": [
     "Hiểu token là gì theo trực giác",
-    "Hiểu context window đầy như thế nào",
-    "Hiểu prompt dài ảnh hưởng đến chi phí và tốc độ ra sao"
+    "Hiểu giới hạn context không cố định mà thay đổi theo từng model",
+    "Hiểu prompt dài, lịch sử chat và output reserve cùng làm tăng chi phí và độ trễ"
   ],
   "relatedProducts": [],
   "relatedPosts": []

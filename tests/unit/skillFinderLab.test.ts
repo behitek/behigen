@@ -12,7 +12,7 @@ describe('buildSkillFinderState', () => {
       isVisual: false
     });
 
-    expect(state.workflow).toBe('direct-execution');
+    expect(state.workflow).toBe('Thực thi trực tiếp nhưng vẫn theo rules của repo');
   });
 
   it('uses systematic debugging for a bug task', () => {
@@ -25,7 +25,7 @@ describe('buildSkillFinderState', () => {
       isVisual: false
     });
 
-    expect(state.workflow).toBe('systematic-debugging');
+    expect(state.workflow).toBe('Debug theo repo và test');
   });
 
   it('uses brainstorming for visual feature work', () => {
@@ -38,7 +38,7 @@ describe('buildSkillFinderState', () => {
       isVisual: true
     });
 
-    expect(state.workflow).toBe('brainstorming');
+    expect(state.workflow).toBe('Chốt hướng thiết kế trước rồi mới code');
   });
 
   it('uses writing-plans for ambiguous or risky feature work', () => {
@@ -51,6 +51,6 @@ describe('buildSkillFinderState', () => {
       isVisual: false
     });
 
-    expect(state.workflow).toBe('writing-plans');
+    expect(state.workflow).toBe('Đọc rules của repo rồi viết plan');
   });
 });
