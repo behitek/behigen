@@ -33,10 +33,10 @@ test("ai package quiz returns a concrete recommendation", async ({ page }) => {
   await page.getByRole("button", { name: "Xem gợi ý" }).click();
 
   await expect(
-    page.getByRole("heading", { name: /Google AI Pro 2TB quản lý gia đình/i }),
+    page.getByRole("heading", { name: /Google AI Pro 5TB quản lý gia đình/i }),
   ).toBeVisible();
   await expect(
-    page.getByRole("link", { name: /Google AI Pro 2TB quản lý family/i }),
+    page.getByRole("link", { name: /Google AI Pro 5TB quản lý family/i }),
   ).toHaveAttribute("href", /\/store\/google-ai-pro-2tb-family-owner$/);
 });
 
@@ -68,7 +68,7 @@ test("ai package quiz recommends both packages when coding and storage are both 
     page.getByRole("link", { name: /ChatGPT Plus gia hạn/i }),
   ).toHaveAttribute("href", /\/store\/chatgpt-plus-personal-renewal$/);
   await expect(
-    page.getByRole("link", { name: /Google AI Pro 2TB tham gia/i }),
+    page.getByRole("link", { name: /Google AI Pro 5TB tham gia/i }),
   ).toHaveAttribute("href", /\/store\/google-ai-pro-2tb-family-member$/);
 });
 

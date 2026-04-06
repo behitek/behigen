@@ -58,7 +58,7 @@ describe("getAiPackageQuizResult", () => {
     expect(result.recommendedSlug).toBe("google-ai-pro-2tb-family-member");
   });
 
-  it("routes storage-heavy family-control users to google premium", () => {
+  it("routes storage-heavy family-control users to the owner variant", () => {
     const result = getAiPackageQuizResult({
       primaryNeed: "google",
       needsGoogleStorage: true,
@@ -69,7 +69,7 @@ describe("getAiPackageQuizResult", () => {
       hasExistingChatGptAccount: false,
     });
 
-    expect(result.recommendedSlug).toBe("google-premium-5tb-family-owner");
+    expect(result.recommendedSlug).toBe("google-ai-pro-2tb-family-owner");
   });
 
   it("recommends buying both when a coding-first user also needs google storage", () => {
@@ -106,7 +106,7 @@ describe("getAiPackageQuizResult", () => {
 
     expect(result.mode).toBe("bundle");
     expect(result.primaryRecommendation.slug).toBe(
-      "google-premium-5tb-family-owner",
+      "google-ai-pro-2tb-family-owner",
     );
     expect(result.secondaryRecommendation?.slug).toBe(
       "chatgpt-plus-personal-new-account",
