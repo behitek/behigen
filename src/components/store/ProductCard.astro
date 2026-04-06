@@ -9,13 +9,18 @@ const logoPath = getProductLogoPath(product.category);
 <article class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/60 transition hover:-translate-y-1 hover:shadow-lg">
   <div class="flex items-start justify-between gap-4">
     <div class="min-w-0 flex-1">
-      <img
-        src={logoPath}
-        alt={`${product.category} product badge`}
-        class="h-12 w-auto rounded-full border border-slate-200 bg-slate-50"
-        loading="lazy"
-      />
-      <h3 class="mt-2 text-xl font-bold text-slate-950">{product.name}</h3>
+      <a
+        href={`${import.meta.env.BASE_URL}store/${product.slug}`}
+        class="group block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-600 focus-visible:ring-offset-2"
+      >
+        <img
+          src={logoPath}
+          alt={`${product.category} product badge`}
+          class="h-12 w-auto rounded-full border border-slate-200 bg-slate-50"
+          loading="lazy"
+        />
+        <h3 class="mt-2 text-xl font-bold text-slate-950 transition group-hover:text-cyan-700">{product.name}</h3>
+      </a>
       <p class="mt-2 text-sm text-slate-600">{product.variant}</p>
     </div>
     <div class="text-right">
