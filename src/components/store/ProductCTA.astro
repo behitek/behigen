@@ -1,4 +1,5 @@
 ---
+import ZaloButton from '@components/contact/ZaloButton.astro';
 import { buildContactHref } from '@utils/contact';
 
 const { productName } = Astro.props;
@@ -18,15 +19,12 @@ const zaloHref = buildContactHref({
     Chọn số lượng account, xem giá mua nhóm rồi nhắn Zalo để xác nhận tồn kho, tổng tiền và cách bàn giao.
   </p>
   <div class="mt-6">
-    <a
+    <ZaloButton
       href={zaloHref}
-      class="group flex items-center justify-center gap-2 rounded-[1.25rem] border border-cyan-300 bg-[linear-gradient(135deg,_#ffffff_0%,_#ecfeff_100%)] px-4 py-3 text-center font-semibold text-cyan-800 shadow-[0_16px_34px_-30px_rgba(8,145,178,0.9)] transition hover:-translate-y-0.5 hover:border-cyan-400"
       aria-label={`Nhắn Zalo để chốt ${productName}`}
-    >
-      <span>Zalo</span>
-      <span class="rounded-full border border-cyan-200 bg-cyan-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-700">
-        Khuyên dùng
-      </span>
-    </a>
+      label={`Nhắn Zalo để chốt ${productName}`}
+      caption="Xác nhận tồn kho, tổng tiền và cách bàn giao"
+      fullWidth={true}
+    />
   </div>
 </div>

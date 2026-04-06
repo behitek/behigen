@@ -1,0 +1,51 @@
+---
+interface Props {
+  href: string;
+  label?: string;
+  caption?: string;
+  ariaLabel?: string;
+  class?: string;
+  fullWidth?: boolean;
+}
+
+const {
+  href,
+  label = 'Nhắn Zalo',
+  caption = 'Tư vấn nhanh, xác nhận đơn',
+  ariaLabel = label,
+  class: className,
+  fullWidth = false
+} = Astro.props;
+---
+
+<a
+  href={href}
+  aria-label={ariaLabel}
+  class:list={[
+    'group inline-flex items-center gap-3 rounded-[1.5rem] border border-cyan-300 bg-[linear-gradient(135deg,_#ffffff_0%,_#ecfeff_52%,_#cffafe_100%)] px-4 py-3.5 text-left text-slate-950 shadow-[0_18px_42px_-30px_rgba(8,145,178,0.8)] transition hover:-translate-y-0.5 hover:border-cyan-400 hover:shadow-[0_22px_48px_-30px_rgba(8,145,178,0.9)]',
+    fullWidth && 'flex w-full',
+    className
+  ]}
+>
+  <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-[1.1rem] bg-white shadow-[inset_0_0_0_1px_rgba(125,211,252,0.7)]">
+    <svg viewBox="0 0 48 48" class="h-8 w-8" aria-hidden="true">
+      <path
+        d="M24 5c10.493 0 19 7.64 19 17.066 0 9.426-8.507 17.067-19 17.067-1.675 0-3.3-.195-4.843-.56L10.5 43l2.086-7.72C8.602 32.21 5 27.498 5 22.066 5 12.64 13.507 5 24 5Z"
+        fill="#0ea5e9"
+      ></path>
+      <path
+        d="M16.15 16.5h15.7l-11.2 15h10.55"
+        fill="none"
+        stroke="#fff"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="3.2"
+      ></path>
+    </svg>
+  </span>
+  <span class="min-w-0 flex-1">
+    <span class="block text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-700">Zalo</span>
+    <span class="mt-0.5 block text-base font-semibold leading-5 text-slate-950">{label}</span>
+    <span class="mt-1 block text-sm leading-5 text-slate-600">{caption}</span>
+  </span>
+</a>

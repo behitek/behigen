@@ -55,21 +55,21 @@ function getGoogleRecommendation(
 
   if (answers.googleUseCase === "storage" && answers.needsOwnerControl) {
     return {
-      slug: "google-premium-5tb-family-owner",
-      label: "Xem Google Premium 5TB",
+      slug: "google-ai-pro-2tb-family-owner",
+      label: "Xem Google AI Pro 5TB quản lý family",
     };
   }
 
   if (answers.needsOwnerControl) {
     return {
       slug: "google-ai-pro-2tb-family-owner",
-      label: "Xem Google AI Pro 2TB quản lý family",
+      label: "Xem Google AI Pro 5TB quản lý family",
     };
   }
 
   return {
     slug: "google-ai-pro-2tb-family-member",
-    label: "Xem Google AI Pro 2TB tham gia",
+    label: "Xem Google AI Pro 5TB tham gia",
   };
 }
 
@@ -196,7 +196,7 @@ export function getAiPackageQuizResult(
     return {
       mode: "single",
       recommendedSlug: googleRecommendation.slug,
-      heading: "Bạn hợp với Google Premium 5TB quản lý gia đình",
+      heading: "Bạn hợp với Google AI Pro 5TB quản lý gia đình",
       summary:
         "Bạn ưu tiên storage dài hạn và cần full quyền family để tự quản lý thành viên.",
       reasons,
@@ -210,9 +210,9 @@ export function getAiPackageQuizResult(
     return {
       mode: "single",
       recommendedSlug: googleRecommendation.slug,
-      heading: "Bạn hợp với Google AI Pro 2TB quản lý gia đình",
+      heading: "Bạn hợp với Google AI Pro 5TB quản lý gia đình",
       summary:
-        "Bạn cần cân bằng giữa AI Google, 2TB storage và quyền quản lý family.",
+        "Bạn cần cân bằng giữa AI Google, 5TB storage và quyền quản lý family.",
       reasons,
       whyNotOtherPath:
         "Nhóm ChatGPT / coding agent phù hợp hơn khi bạn không cần Drive, Photos hoặc quyền family.",
@@ -223,7 +223,7 @@ export function getAiPackageQuizResult(
   return {
     mode: "single",
     recommendedSlug: googleRecommendation.slug,
-    heading: "Bạn hợp với Google AI Pro 2TB tham gia gia đình",
+    heading: "Bạn hợp với Google AI Pro 5TB tham gia gia đình",
     summary:
       "Bạn cần lợi ích AI và storage của Google nhưng không cần full quyền quản lý family.",
     reasons,

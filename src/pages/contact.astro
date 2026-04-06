@@ -1,4 +1,5 @@
 ---
+import ZaloButton from '@components/contact/ZaloButton.astro';
 import Layout from '@layouts/Layout.astro';
 import { buildContactHref } from '@utils/contact';
 
@@ -15,23 +16,33 @@ const zaloHref = buildContactHref({
 >
   <section class="container py-16">
     <a href={`${import.meta.env.BASE_URL}store`} class="text-sm font-semibold text-cyan-700">Quay lại cửa hàng</a>
-    <h1 class="mt-4 text-4xl font-black tracking-tight text-slate-950">Liên hệ</h1>
-    <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
-      Nhắn Zalo để xác nhận tồn kho, số lượng account, giá mua nhóm và cách bàn giao phù hợp.
-    </p>
-    <div class="mt-8 max-w-xl">
-      <a
-        href={zaloHref}
-        class="group flex items-center justify-center gap-2 rounded-[1.75rem] border border-cyan-300 bg-[linear-gradient(135deg,_#ecfeff_0%,_#cffafe_100%)] px-5 py-5 text-center font-semibold text-slate-950 shadow-[0_14px_40px_-28px_rgba(8,145,178,0.65)] transition hover:-translate-y-0.5 hover:border-cyan-400 hover:shadow-[0_18px_45px_-26px_rgba(8,145,178,0.75)]"
-      >
-        <span>Zalo</span>
-        <span class="rounded-full border border-cyan-200 bg-white/80 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-cyan-700">
-          Khuyên dùng
-        </span>
-      </a>
-    </div>
-    <div class="mt-6 max-w-2xl rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 text-sm leading-6 text-slate-600">
-      Mẹo chốt đơn nhanh: gửi luôn tên gói, số lượng account muốn mua và thời gian cần nhận để được báo đúng mức giảm giá ngay từ đầu.
+    <div class="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]">
+      <div class="rounded-[2rem] border border-cyan-200 bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.3),_transparent_42%),linear-gradient(135deg,_#ecfeff_0%,_#ffffff_55%,_#f8fafc_100%)] p-8">
+        <p class="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-700">Kênh liên hệ duy nhất</p>
+        <h1 class="mt-4 max-w-2xl text-4xl font-black tracking-tight text-slate-950">Nhắn Zalo để xác nhận gói, giá và thời gian bàn giao</h1>
+        <p class="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
+          Hiện tại mình nhận liên hệ qua một kênh duy nhất để trả lời nhanh và không sót tin. Chỉ cần gửi tên gói, số lượng account và thời gian cần nhận.
+        </p>
+        <div class="mt-8 max-w-xl">
+          <ZaloButton
+            href={zaloHref}
+            label="Mở Zalo để trao đổi"
+            caption="Tư vấn nhanh, báo giá mua nhóm và xác nhận tồn kho"
+            fullWidth={true}
+          />
+        </div>
+      </div>
+      <div class="rounded-[2rem] border border-slate-200 bg-white p-8">
+        <h2 class="text-2xl font-black text-slate-950">Gửi trước khi nhắn</h2>
+        <ul class="mt-5 space-y-3 text-sm leading-6 text-slate-600">
+          <li>• Tên gói hoặc link sản phẩm bạn muốn mua.</li>
+          <li>• Số lượng account để báo đúng mức giá mua nhóm.</li>
+          <li>• Thời gian cần nhận để chốt cách bàn giao phù hợp.</li>
+        </ul>
+        <div class="mt-6 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 text-sm leading-6 text-slate-600">
+          Tin nhắn càng đủ thông tin thì phản hồi càng nhanh, thường không cần hỏi qua lại nhiều lần.
+        </div>
+      </div>
     </div>
   </section>
 </Layout>
