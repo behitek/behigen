@@ -21,6 +21,7 @@ if (!matchedChannel) {
 
 const channel = matchedChannel as ContactChannel;
 const label = CONTACT_CHANNEL_LABELS[channel];
+const zaloHref = 'https://zalo.me/g/csrribk24f1y5x5xlimh';
 ---
 
 <Layout
@@ -37,7 +38,7 @@ const label = CONTACT_CHANNEL_LABELS[channel];
       </p>
       <a
         id="continue-link"
-        href={`${import.meta.env.BASE_URL}contact`}
+        href={zaloHref}
         class="mt-6 inline-flex rounded-full bg-cyan-600 px-6 py-3 font-semibold text-white"
       >
         Tiếp tục tới {label}
@@ -45,30 +46,7 @@ const label = CONTACT_CHANNEL_LABELS[channel];
     </div>
   </section>
 
-  <script is:inline define:vars={{ channel }}>
-    const channelConfig = {
-      zalo: {
-        parts: ['https://za', 'lo.me/g/', 'csrribk24f1y5x5xlimh']
-      },
-      telegram: {
-        parts: ['https://t.', 'me/', 'hieunv11']
-      },
-      messenger: {
-        parts: ['http://m.', 'me/', 'realbehitek/']
-      }
-    };
-
-    const config = channelConfig[channel];
-
-    if (config) {
-      const href = config.parts.join('');
-      const continueLink = document.querySelector('#continue-link');
-
-      if (continueLink instanceof HTMLAnchorElement) {
-        continueLink.href = href;
-      }
-
-      window.location.replace(href);
-    }
+  <script is:inline define:vars={{ zaloHref }}>
+    window.location.replace(zaloHref);
   </script>
 </Layout>

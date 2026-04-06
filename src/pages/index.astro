@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import FAQPreview from '@components/content/FAQPreview.astro';
 import PostCard from '@components/content/PostCard.astro';
+import GroupPricingSelector from '@components/store/GroupPricingSelector.astro';
 import ProductCard from '@components/store/ProductCard.astro';
 import ToolCard from '@components/tools/ToolCard.astro';
 import Layout from '@layouts/Layout.astro';
@@ -19,19 +20,11 @@ const zaloHref = buildContactHref({
   basePath: import.meta.env.BASE_URL,
   channel: 'zalo'
 });
-const telegramHref = buildContactHref({
-  basePath: import.meta.env.BASE_URL,
-  channel: 'telegram'
-});
-const messengerHref = buildContactHref({
-  basePath: import.meta.env.BASE_URL,
-  channel: 'messenger'
-});
 ---
 
 <Layout
   title="Behigen - Tài khoản AI giá tốt cho dev"
-  description="Tài khoản AI giá tốt cho dev và sinh viên IT, có giá rõ ràng và liên hệ nhanh qua chat."
+  description="Tài khoản AI cho dev và sinh viên IT, có giá niêm yết rõ ràng, ưu đãi mua nhóm và liên hệ nhanh qua Zalo."
   canonical="/"
 >
   <section class="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(8,145,178,0.18),_transparent_35%),linear-gradient(135deg,_#ecfeff_0%,_#ffffff_55%,_#f8fafc_100%)] py-20">
@@ -43,7 +36,7 @@ const messengerHref = buildContactHref({
         Tài khoản AI giá tốt cho dev và sinh viên IT
       </h1>
       <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
-        Xem giá rõ ràng, chọn đúng gói cần dùng, rồi nhắn Zalo để chốt nhanh. Telegram và Messenger vẫn có sẵn nếu đó là kênh bạn dùng thường xuyên.
+        Xem giá niêm yết rõ ràng, chọn số lượng account để thấy ưu đãi mua nhóm, rồi nhắn Zalo để chốt nhanh.
       </p>
       <div class="mt-8 flex flex-wrap gap-4">
         <a href={`${import.meta.env.BASE_URL}store`} class="rounded-full bg-cyan-600 px-6 py-3 font-semibold text-white">
@@ -63,18 +56,6 @@ const messengerHref = buildContactHref({
             Khuyên dùng
           </span>
         </a>
-        <a
-          href={telegramHref}
-          class="group inline-flex items-center gap-2 rounded-full border border-white bg-white px-4 py-2.5 text-slate-900 shadow-[0_14px_30px_-26px_rgba(15,23,42,0.35)] transition hover:-translate-y-0.5 hover:border-slate-300"
-        >
-          <span>Telegram</span>
-        </a>
-        <a
-          href={messengerHref}
-          class="group inline-flex items-center gap-2 rounded-full border border-white bg-white px-4 py-2.5 text-slate-900 shadow-[0_14px_30px_-26px_rgba(15,23,42,0.35)] transition hover:-translate-y-0.5 hover:border-slate-300"
-        >
-          <span>Messenger</span>
-        </a>
       </div>
     </div>
   </section>
@@ -86,9 +67,30 @@ const messengerHref = buildContactHref({
         Các gói đang được chọn nhiều nhất bởi sinh viên IT, junior dev và người cần kết hợp AI với lưu trữ.
       </p>
     </div>
-    <div class="mt-8 grid gap-6 lg:grid-cols-2">
-      {featuredProducts.map((product) => <ProductCard product={product.data} />)}
+    <div class="mt-8 space-y-6" data-group-pricing-root>
+      <div class="rounded-[2rem] border border-cyan-200 bg-cyan-50 p-6">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div class="max-w-2xl">
+            <p class="text-sm font-semibold uppercase tracking-[0.12em] text-cyan-700">
+              Mua nhóm càng rẻ
+            </p>
+            <h3 class="mt-2 text-2xl font-black text-slate-950">
+              Mua 2 giảm 10%, mua 3-4 giảm 20%, mua 5+ giảm 30%
+            </h3>
+            <p class="mt-3 text-sm leading-6 text-slate-600">
+              Đang xem giá cho <span class="font-bold text-slate-950" data-group-pricing-quantity>1</span> account trên mỗi gói nổi bật.
+            </p>
+          </div>
+          <GroupPricingSelector inputId="home-group-quantity" quantity={1} label="Số lượng account" />
+        </div>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-2">
+        {featuredProducts.map((product) => <ProductCard product={product.data} />)}
+      </div>
     </div>
+    <script>
+      import '../components/store/groupPricingClient';
+    </script>
   </section>
 
   <section class="container py-16">
@@ -98,15 +100,15 @@ const messengerHref = buildContactHref({
         <ul class="mt-5 space-y-3 text-sm leading-6 text-slate-600">
           <li>• Giá công khai, không cần hỏi inbox để biết mức giá.</li>
           <li>• Hình thức tài khoản và bảo hành được ghi rõ trên từng gói.</li>
-          <li>• Hỗ trợ chốt đơn qua đúng các kênh chat người dùng đã quen.</li>
+          <li>• Mua nhóm được giảm trực tiếp trên từng account thay vì phải hỏi tay.</li>
         </ul>
       </div>
       <div class="rounded-[2rem] border border-slate-200 bg-white p-6">
         <h2 class="text-2xl font-black text-slate-950">Cách mua</h2>
         <ol class="mt-5 space-y-3 text-sm leading-6 text-slate-600">
           <li>1. Chọn gói theo nhu cầu và ngân sách.</li>
-          <li>2. Xem kỹ thời hạn, bảo hành và hình thức bàn giao.</li>
-          <li>3. Nhắn qua kênh chat phù hợp để được xác nhận tồn kho và chốt đơn.</li>
+          <li>2. Chọn số lượng account để xem mức giá mua nhóm.</li>
+          <li>3. Nhắn Zalo để được xác nhận tồn kho và chốt đơn.</li>
         </ol>
       </div>
       <div class="rounded-[2rem] border border-slate-200 bg-white p-6">
@@ -165,7 +167,7 @@ const messengerHref = buildContactHref({
       <p class="text-sm font-semibold uppercase tracking-[0.14em] text-cyan-300">Chốt gói nhanh</p>
       <h2 class="mt-3 text-3xl font-black">Không chắc nên mua gói nào?</h2>
       <p class="mt-4 max-w-2xl text-base leading-7 text-slate-300">
-        Gửi nhu cầu và ngân sách qua Zalo để nhận tư vấn nhanh nhất. Nếu tiện hơn, bạn vẫn có thể nhắn qua Telegram hoặc Messenger và mình sẽ gợi ý 2-3 gói phù hợp.
+        Gửi nhu cầu, số lượng account và ngân sách qua Zalo để nhận tư vấn nhanh nhất cùng mức giảm giá phù hợp.
       </p>
       <div class="mt-8 flex flex-wrap gap-3 text-sm font-semibold">
         <a
@@ -176,18 +178,6 @@ const messengerHref = buildContactHref({
           <span class="rounded-full border border-cyan-500/20 bg-white/70 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-700">
             Khuyên dùng
           </span>
-        </a>
-        <a
-          href={telegramHref}
-          class="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-white px-4 py-2.5 text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
-        >
-          <span>Telegram</span>
-        </a>
-        <a
-          href={messengerHref}
-          class="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-white px-4 py-2.5 text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
-        >
-          <span>Messenger</span>
         </a>
       </div>
     </div>

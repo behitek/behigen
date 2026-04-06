@@ -1,17 +1,17 @@
 {
   "slug": "google-ai-pro-2tb-family-owner",
   "category": "google",
-  "name": "Google AI Pro (2TB)",
+  "name": "Google AI Pro (5TB)",
   "variant": "Quản lý gia đình",
   "tagline": "Gói cân bằng nhất cho dev cần Gemini, storage và quyền quản lý family.",
-  "price": 400000,
+  "price": 600000,
   "billingTerm": "12 tháng",
   "warranty": "12 tháng",
   "deliveryType": "Account chính chủ, quản lý gia đình",
   "featured": true,
   "highlights": [
     "Gemini Pro tại gemini.google",
-    "2TB Google Drive chia đều cho các thành viên gia đình",
+    "5TB Google Drive chia đều cho các thành viên gia đình",
     "Antigravity và Gemini-CLI",
     "Nano Banana Pro 3",
     "Full quyền quản lý Family"
@@ -39,6 +39,6 @@
       "answer": "Có, vì đây là gói quản lý gia đình với full quyền family."
     }
   ],
-  "seoTitle": "Google AI Pro 2TB gia đình chính chủ cho dev và sinh viên IT",
-  "seoDescription": "Gemini AI Pro, 2TB Drive, full quyền Family, bảo hành 12 tháng."
+  "seoTitle": "Google AI Pro 5TB gia đình chính chủ cho dev và sinh viên IT",
+  "seoDescription": "Gemini AI Pro, 5TB Drive, full quyền Family, bảo hành 12 tháng."
 }

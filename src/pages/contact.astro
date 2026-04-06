@@ -6,28 +6,20 @@ const zaloHref = buildContactHref({
   basePath: import.meta.env.BASE_URL,
   channel: 'zalo'
 });
-const telegramHref = buildContactHref({
-  basePath: import.meta.env.BASE_URL,
-  channel: 'telegram'
-});
-const messengerHref = buildContactHref({
-  basePath: import.meta.env.BASE_URL,
-  channel: 'messenger'
-});
 ---
 
 <Layout
   title="Liên hệ mua tài khoản AI"
-  description="Liên hệ qua Zalo, Telegram hoặc Messenger để được tư vấn và chốt gói phù hợp. Zalo là kênh khuyên dùng."
+  description="Liên hệ qua Zalo để được tư vấn, báo giá mua nhóm và chốt gói phù hợp."
   canonical="/contact"
 >
   <section class="container py-16">
     <a href={`${import.meta.env.BASE_URL}store`} class="text-sm font-semibold text-cyan-700">Quay lại cửa hàng</a>
     <h1 class="mt-4 text-4xl font-black tracking-tight text-slate-950">Liên hệ</h1>
     <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
-      Chọn kênh chat bạn đang dùng. Zalo là kênh khuyên dùng để nhận phản hồi nhanh nhất, còn Telegram và Messenger vẫn luôn sẵn sàng.
+      Nhắn Zalo để xác nhận tồn kho, số lượng account, giá mua nhóm và cách bàn giao phù hợp.
     </p>
-    <div class="mt-8 grid gap-4 sm:grid-cols-3">
+    <div class="mt-8 max-w-xl">
       <a
         href={zaloHref}
         class="group flex items-center justify-center gap-2 rounded-[1.75rem] border border-cyan-300 bg-[linear-gradient(135deg,_#ecfeff_0%,_#cffafe_100%)] px-5 py-5 text-center font-semibold text-slate-950 shadow-[0_14px_40px_-28px_rgba(8,145,178,0.65)] transition hover:-translate-y-0.5 hover:border-cyan-400 hover:shadow-[0_18px_45px_-26px_rgba(8,145,178,0.75)]"
@@ -37,18 +29,9 @@ const messengerHref = buildContactHref({
           Khuyên dùng
         </span>
       </a>
-      <a
-        href={telegramHref}
-        class="group flex items-center justify-center gap-2 rounded-[1.75rem] border border-slate-200 bg-white px-5 py-5 text-center font-semibold text-slate-900 shadow-[0_12px_30px_-28px_rgba(15,23,42,0.45)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_18px_40px_-30px_rgba(15,23,42,0.5)]"
-      >
-        <span>Telegram</span>
-      </a>
-      <a
-        href={messengerHref}
-        class="group flex items-center justify-center gap-2 rounded-[1.75rem] border border-slate-200 bg-white px-5 py-5 text-center font-semibold text-slate-900 shadow-[0_12px_30px_-28px_rgba(15,23,42,0.45)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_18px_40px_-30px_rgba(15,23,42,0.5)]"
-      >
-        <span>Messenger</span>
-      </a>
+    </div>
+    <div class="mt-6 max-w-2xl rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 text-sm leading-6 text-slate-600">
+      Mẹo chốt đơn nhanh: gửi luôn tên gói, số lượng account muốn mua và thời gian cần nhận để được báo đúng mức giảm giá ngay từ đầu.
     </div>
   </section>
 </Layout>

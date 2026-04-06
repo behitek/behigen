@@ -1,4 +1,5 @@
 ---
+import GroupPricingSummary from '@components/store/GroupPricingSummary.astro';
 import { formatPriceLabel, getProductLogoPath } from '@utils/products';
 
 const { product } = Astro.props;
@@ -18,12 +19,17 @@ const logoPath = getProductLogoPath(product.category);
       <p class="mt-2 text-sm text-slate-600">{product.variant}</p>
     </div>
     <div class="text-right">
-      <div class="text-2xl font-black text-slate-950">{formatPriceLabel(product.price)}</div>
+      <div class="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">Giá niêm yết</div>
+      <div class="mt-1 text-2xl font-black text-slate-950">{formatPriceLabel(product.price)}</div>
       <div class="text-sm text-slate-500">{product.billingTerm}</div>
     </div>
   </div>
 
   <p class="mt-4 text-sm leading-6 text-slate-600">{product.tagline}</p>
+
+  <div class="mt-5">
+    <GroupPricingSummary price={product.price} productName={product.name} mode="compact" />
+  </div>
 
   <div class="mt-5 grid gap-3 sm:grid-cols-2">
     <div class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">

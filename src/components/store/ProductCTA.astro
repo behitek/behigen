@@ -1,17 +1,11 @@
 ---
 import { buildContactHref } from '@utils/contact';
 
+const { productName } = Astro.props;
+
 const zaloHref = buildContactHref({
   basePath: import.meta.env.BASE_URL,
   channel: 'zalo'
-});
-const telegramHref = buildContactHref({
-  basePath: import.meta.env.BASE_URL,
-  channel: 'telegram'
-});
-const messengerHref = buildContactHref({
-  basePath: import.meta.env.BASE_URL,
-  channel: 'messenger'
 });
 ---
 
@@ -19,31 +13,20 @@ const messengerHref = buildContactHref({
   <p class="text-sm font-semibold uppercase tracking-[0.12em] text-cyan-700">
     Liên hệ mua nhanh
   </p>
-  <h2 class="mt-3 text-2xl font-black text-slate-950">Chọn kênh chat bạn đang dùng</h2>
+  <h2 class="mt-3 text-2xl font-black text-slate-950">Nhắn Zalo để chốt {productName}</h2>
   <p class="mt-3 text-sm leading-6 text-slate-600">
-    Zalo là kênh khuyên dùng để chốt đơn nhanh nhất. Telegram và Messenger vẫn mở sẵn tin nhắn với tên sản phẩm nếu bạn tiện dùng hơn.
+    Chọn số lượng account, xem giá mua nhóm rồi nhắn Zalo để xác nhận tồn kho, tổng tiền và cách bàn giao.
   </p>
-  <div class="mt-6 grid gap-3 sm:grid-cols-3">
+  <div class="mt-6">
     <a
       href={zaloHref}
       class="group flex items-center justify-center gap-2 rounded-[1.25rem] border border-cyan-300 bg-[linear-gradient(135deg,_#ffffff_0%,_#ecfeff_100%)] px-4 py-3 text-center font-semibold text-cyan-800 shadow-[0_16px_34px_-30px_rgba(8,145,178,0.9)] transition hover:-translate-y-0.5 hover:border-cyan-400"
+      aria-label={`Nhắn Zalo để chốt ${productName}`}
     >
       <span>Zalo</span>
       <span class="rounded-full border border-cyan-200 bg-cyan-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-700">
         Khuyên dùng
       </span>
-    </a>
-    <a
-      href={telegramHref}
-      class="group flex items-center justify-center gap-2 rounded-[1.25rem] border border-white/70 bg-white px-4 py-3 text-center font-semibold text-slate-900 shadow-[0_12px_28px_-28px_rgba(15,23,42,0.45)] transition hover:-translate-y-0.5 hover:border-slate-200"
-    >
-      <span>Telegram</span>
-    </a>
-    <a
-      href={messengerHref}
-      class="group flex items-center justify-center gap-2 rounded-[1.25rem] border border-white/70 bg-white px-4 py-3 text-center font-semibold text-slate-900 shadow-[0_12px_28px_-28px_rgba(15,23,42,0.45)] transition hover:-translate-y-0.5 hover:border-slate-200"
-    >
-      <span>Messenger</span>
     </a>
   </div>
 </div>

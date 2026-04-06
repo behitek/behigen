@@ -1,0 +1,49 @@
+---
+const {
+  inputId,
+  quantity = 1,
+  label = 'Chọn số lượng account',
+  compact = false
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    'flex flex-wrap items-center gap-3',
+    compact
+      ? 'rounded-full border border-cyan-200 bg-white px-4 py-3'
+      : 'rounded-[1.5rem] border border-cyan-200 bg-cyan-50 px-4 py-4'
+  ]}
+>
+  <label for={inputId} class="text-sm font-semibold text-slate-700">{label}</label>
+  <div class="inline-flex items-center rounded-full border border-cyan-300 bg-white shadow-sm">
+    <button
+      type="button"
+      class="h-10 w-10 rounded-l-full text-lg font-bold text-cyan-800 transition hover:bg-cyan-50"
+      data-group-pricing-decrement
+      aria-controls={inputId}
+      aria-label="Giảm số lượng account"
+    >
+      -
+    </button>
+    <input
+      id={inputId}
+      type="number"
+      min="1"
+      step="1"
+      value={quantity}
+      inputmode="numeric"
+      data-group-pricing-input
+      class="h-10 w-16 border-x border-cyan-200 bg-white text-center text-sm font-bold text-slate-950 outline-none"
+    />
+    <button
+      type="button"
+      class="h-10 w-10 rounded-r-full text-lg font-bold text-cyan-800 transition hover:bg-cyan-50"
+      data-group-pricing-increment
+      aria-controls={inputId}
+      aria-label="Tăng số lượng account"
+    >
+      +
+    </button>
+  </div>
+</div>

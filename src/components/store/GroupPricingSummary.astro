@@ -1,0 +1,108 @@
+---
+import {
+  calculateGroupPricing,
+  formatDiscountLabel,
+  formatPriceLabel
+} from '@utils/products';
+
+const {
+  price,
+  quantity = 1,
+  productName,
+  mode = 'compact'
+} = Astro.props;
+
+const summary = calculateGroupPricing(price, quantity);
+const isFull = mode === 'full';
+---
+
+<div
+  class:list={[
+    'rounded-[1.5rem] border border-cyan-200 bg-cyan-50',
+    isFull ? 'p-5' : 'p-4'
+  ]}
+  data-group-pricing-card
+  data-base-price={price}
+  data-product-name={productName}
+>
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-cyan-700">
+        Giá mua nhóm
+      </p>
+      <div class="mt-2 flex flex-wrap items-center gap-2">
+        <span
+          class="rounded-full border border-cyan-300 bg-white px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-cyan-700"
+          data-group-pricing-badge
+        >
+          {formatDiscountLabel(summary.discountRate)}
+        </span>
+        <span class="text-xs font-semibold text-slate-600" data-group-pricing-tier-label>
+          {summary.tierLabel}
+        </span>
+      </div>
+    </div>
+    <div class="text-right">
+      <div class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+        Giá niêm yết
+      </div>
+      <div class="mt-1 text-sm font-bold text-slate-500 line-through" data-group-pricing-listed>
+        {formatPriceLabel(price)}
+      </div>
+    </div>
+  </div>
+
+  {isFull ? (
+    <div class="mt-4 grid gap-3 sm:grid-cols-3">
+      <div class="rounded-2xl border border-white/70 bg-white px-4 py-3">
+        <div class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+          Giá / account
+        </div>
+        <div class="mt-1 text-2xl font-black text-slate-950" data-group-pricing-unit>
+          {formatPriceLabel(summary.unitPrice)}
+        </div>
+      </div>
+      <div class="rounded-2xl border border-white/70 bg-white px-4 py-3">
+        <div class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+          Tổng tạm tính
+        </div>
+        <div class="mt-1 text-2xl font-black text-slate-950" data-group-pricing-total>
+          {formatPriceLabel(summary.totalPrice)}
+        </div>
+      </div>
+      <div class="rounded-2xl border border-white/70 bg-white px-4 py-3">
+        <div class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+          Tiết kiệm
+        </div>
+        <div class="mt-1 text-2xl font-black text-cyan-800" data-group-pricing-savings>
+          {formatPriceLabel(summary.savings)}
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div class="mt-4 flex items-end justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+          Giá / account
+        </div>
+        <div class="mt-1 text-xl font-black text-slate-950" data-group-pricing-unit>
+          {formatPriceLabel(summary.unitPrice)}
+        </div>
+      </div>
+      <div class="text-right">
+        <div class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+          Tổng
+        </div>
+        <div class="mt-1 text-lg font-black text-slate-950" data-group-pricing-total>
+          {formatPriceLabel(summary.totalPrice)}
+        </div>
+      </div>
+    </div>
+  )}
+
+  <p class="mt-3 text-sm leading-6 text-slate-700" data-group-pricing-copy>
+    {summary.savings > 0
+      ? `Tiết kiệm ${formatPriceLabel(summary.savings)} khi chốt ${summary.quantity} account cùng lúc.`
+      : 'Mua từ 2 account để bắt đầu có mức giá tốt hơn trên mỗi account.'}
+  </p>
+</div>

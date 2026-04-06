@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import GroupPricingSelector from '@components/store/GroupPricingSelector.astro';
 import Layout from '@layouts/Layout.astro';
 import ProductCard from '@components/store/ProductCard.astro';
 import { groupProductsByCategory } from '@utils/products';
@@ -13,7 +14,7 @@ const groupedProducts = groupProductsByCategory(sortedProducts);
 
 <Layout
   title="Cửa hàng tài khoản AI"
-  description="Danh sách tài khoản AI giá tốt cho dev và sinh viên IT."
+  description="Danh sách tài khoản AI với giá niêm yết rõ ràng, ưu đãi mua nhóm và liên hệ Zalo nhanh."
   canonical="/store"
 >
   <section class="container py-16">
@@ -21,18 +22,38 @@ const groupedProducts = groupProductsByCategory(sortedProducts);
       <p class="text-sm font-semibold uppercase tracking-[0.14em] text-cyan-700">Store</p>
       <h1 class="mt-3 text-4xl font-black tracking-tight text-slate-950">Cửa hàng</h1>
       <p class="mt-4 text-lg leading-8 text-slate-600">
-        Quét nhanh theo nhóm sản phẩm, giá, thời hạn và hình thức tài khoản trước khi sang trang chi tiết để chốt gói phù hợp.
+        Quét nhanh theo nhóm sản phẩm, giá niêm yết, mức giảm mua nhóm, thời hạn và hình thức tài khoản trước khi sang trang chi tiết để chốt gói phù hợp.
       </p>
     </div>
 
-    <div class="mt-10 space-y-12">
-      {Object.entries(groupedProducts).map(([, categoryProducts]) => (
-        <section>
-          <div class="grid gap-6 lg:grid-cols-2">
-            {categoryProducts.map((product) => <ProductCard product={product} />)}
+    <div class="mt-10 space-y-8" data-group-pricing-root>
+      <div class="rounded-[2rem] border border-cyan-200 bg-cyan-50 p-6">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div class="max-w-2xl">
+            <p class="text-sm font-semibold uppercase tracking-[0.12em] text-cyan-700">Ưu đãi mua nhóm</p>
+            <h2 class="mt-2 text-2xl font-black text-slate-950">
+              Mua 2 giảm 10%, mua 3-4 giảm 20%, mua 5+ giảm 30%
+            </h2>
+            <p class="mt-3 text-sm leading-6 text-slate-600">
+              Đang so sánh giá cho <span class="font-bold text-slate-950" data-group-pricing-quantity>1</span> account trên toàn bộ store.
+            </p>
           </div>
-        </section>
-      ))}
+          <GroupPricingSelector inputId="store-group-quantity" quantity={1} label="Số lượng account" />
+        </div>
+      </div>
+
+      <div class="space-y-12">
+        {Object.entries(groupedProducts).map(([, categoryProducts]) => (
+          <section>
+            <div class="grid gap-6 lg:grid-cols-2">
+              {categoryProducts.map((product) => <ProductCard product={product} />)}
+            </div>
+          </section>
+        ))}
+      </div>
     </div>
+    <script>
+      import '../../components/store/groupPricingClient';
+    </script>
   </section>
 </Layout>

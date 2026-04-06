@@ -1,29 +1,21 @@
-import { describe, expect, it } from "vitest";
-import { buildContactHref } from "../../src/utils/contact";
+import { describe, expect, it } from 'vitest';
+import { buildContactHref } from '../../src/utils/contact';
 
-describe("contact helpers", () => {
-  it("creates an internal Telegram redirect link", () => {
+describe('contact helpers', () => {
+  it('creates an internal Zalo redirect link', () => {
     expect(
       buildContactHref({
-        channel: "telegram",
-      }),
-    ).toBe("/go/telegram");
+        channel: 'zalo'
+      })
+    ).toBe('/go/zalo');
   });
 
-  it("creates an internal Zalo redirect link", () => {
+  it('keeps base paths when generating redirect links', () => {
     expect(
       buildContactHref({
-        channel: "zalo",
-      }),
-    ).toBe("/go/zalo");
-  });
-
-  it("keeps base paths when generating redirect links", () => {
-    expect(
-      buildContactHref({
-        basePath: "/shop/",
-        channel: "messenger",
-      }),
-    ).toBe("/shop/go/messenger");
+        basePath: '/shop/',
+        channel: 'zalo'
+      })
+    ).toBe('/shop/go/zalo');
   });
 });
