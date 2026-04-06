@@ -3,31 +3,31 @@
   "category": "google",
   "name": "Google AI Pro (5TB)",
   "variant": "Quản lý gia đình",
-  "tagline": "Gói cân bằng nhất cho dev cần Gemini, storage và quyền quản lý family.",
+  "tagline": "Bản phù hợp khi bạn muốn dùng Google AI Pro trên tài khoản cá nhân và cần quyền quản lý nhóm gia đình.",
   "price": 600000,
   "billingTerm": "12 tháng",
   "warranty": "12 tháng",
   "deliveryType": "Account chính chủ, quản lý gia đình",
   "featured": true,
   "highlights": [
-    "Gemini Pro tại gemini.google",
-    "5TB Google Drive chia đều cho các thành viên gia đình",
-    "Antigravity và Gemini-CLI",
-    "Nano Banana Pro 3",
-    "Full quyền quản lý Family"
+    "Google AI Pro với 5TB lưu trữ cho Gmail, Drive và Photos",
+    "Gemini app, NotebookLM và Gemini trong Gmail, Docs, Sheets, Vids và hơn thế nữa",
+    "Higher limits cho Gemini CLI và Gemini Code Assist so với các gói thấp hơn",
+    "Full quyền quản lý family cho tài khoản owner"
   ],
   "details": [
-    "Share dung lượng cho tối đa 5 thành viên",
-    "Phù hợp cho người dùng cần AI lẫn lưu trữ",
-    "Giá công khai và bảo hành rõ ràng"
+    "Nền tảng là Google AI Pro chính thức với 5TB lưu trữ trong hệ Google One",
+    "Google hiện mô tả Google AI Pro là tên mới của Google AI Premium, vẫn bao gồm Gemini app, NotebookLM và các lợi ích AI trong hệ Google",
+    "Điểm khác biệt của sản phẩm này là cách bàn giao cho phép bạn giữ vai trò quản lý family",
+    "Phù hợp khi bạn muốn kết hợp quyền lợi AI, dung lượng lưu trữ lớn và khả năng chủ động quản lý thành viên"
   ],
   "suitableFor": [
-    "Sinh viên IT cần gói dùng dài hạn",
-    "Junior dev cần vừa AI vừa Google storage"
+    "Người cần Google AI Pro cho nhu cầu AI và lưu trữ dài hạn",
+    "Người muốn giữ quyền quản lý nhóm gia đình thay vì chỉ tham gia member"
   ],
   "notSuitableFor": [
     "Người chỉ cần dùng AI ngắn hạn 1 tháng",
-    "Người không cần hệ Google Drive"
+    "Người không cần quyền quản lý family hoặc không dùng hệ sinh thái Google"
   ],
   "purchaseNotes": [
     "Liên hệ trước để xác nhận tồn kho",
@@ -36,9 +36,9 @@
   "faqs": [
     {
       "question": "Gói này có share cho người khác được không?",
-      "answer": "Có, vì đây là gói quản lý gia đình với full quyền family."
+      "answer": "Có, vì đây là gói quản lý gia đình với full quyền family. Nền tảng vẫn là Google AI Pro 5TB và cho phép family sharing theo cơ chế của Google One."
     }
   ],
   "seoTitle": "Google AI Pro 5TB gia đình chính chủ cho dev và sinh viên IT",
-  "seoDescription": "Gemini AI Pro, 5TB Drive, full quyền Family, bảo hành 12 tháng."
+  "seoDescription": "Google AI Pro 5TB, Gemini app, NotebookLM, full quyền Family và higher limits cho Gemini CLI, phù hợp cho người cần vừa AI vừa lưu trữ."
 }

@@ -1,42 +1,42 @@
 {
   "slug": "chatgpt-plus-personal-renewal",
   "category": "chatgpt",
-  "name": "ChatGPT Plus (Personal)",
+  "name": "ChatGPT Plus",
   "variant": "Gia hạn chính chủ",
-  "tagline": "Lựa chọn đảm bảo nhất do nâng cấp trực tiếp trên tài khoản của bạn qua gift-code.",
+  "tagline": "Gia hạn trực tiếp trên tài khoản cá nhân để giữ nguyên lịch sử sử dụng và workspace hiện có.",
   "price": 200000,
   "billingTerm": "1 tháng",
   "warranty": "07 ngày",
   "deliveryType": "Gia hạn chính chủ",
   "featured": true,
   "highlights": [
-    "Toàn quyền truy cập GPT-5 (model mới nhất) trên ChatGPT",
-    "Phân tích dữ liệu chuyên sâu",
-    "Tích hợp Codex (Coding agent)"
+    "ChatGPT Plus là gói thuê bao trả phí của OpenAI với quyền truy cập mở rộng hơn bản Free",
+    "Có voice conversations, image generation, file uploads, deep research và custom GPTs",
+    "Phù hợp khi bạn muốn tiếp tục dùng trên tài khoản cá nhân đang hoạt động"
   ],
   "details": [
-    "Phù hợp khi bạn đã có tài khoản và chỉ muốn gia hạn nhanh",
-    "Mạnh cho nhu cầu chat AI, coding, tóm tắt và hỗ trợ học tập hằng ngày",
-    "Không gắn với hệ lưu trữ lớn như các gói Google"
+    "Theo tài liệu chính thức, ChatGPT Plus có giá $20/tháng và tính theo chu kỳ tháng",
+    "Gói này cung cấp quyền truy cập mở rộng, tốc độ phản hồi tốt hơn và các tính năng nâng cao như custom GPTs, projects, tasks, file uploads, file analysis và deep research",
+    "API usage là dịch vụ riêng và không nằm trong thuê bao ChatGPT Plus"
   ],
   "suitableFor": [
-    "Người cần AI chat và coding theo chu kỳ 1 tháng",
-    "Dev muốn gia hạn tài khoản cá nhân đang dùng"
+    "Người đã dùng ChatGPT thường xuyên và muốn giữ nguyên tài khoản cá nhân đang dùng",
+    "Người cần ChatGPT Plus cho viết lách, học tập, nghiên cứu và coding"
   ],
   "notSuitableFor": [
-    "Người cần Google Drive hoặc Photos dung lượng lớn",
-    "Người muốn dùng rất tiết kiệm với chi phí thấp nhất có thể"
+    "Người cần API usage vì API được billing riêng",
+    "Người muốn bắt đầu bằng tài khoản mới thay vì gia hạn tài khoản cá nhân"
   ],
   "purchaseNotes": [
-    "Chuẩn bị sẵn tài khoản cần gia hạn để xử lý nhanh qua chat",
-    "Xác nhận lại tình trạng tài khoản trước khi chốt"
+    "Chuẩn bị sẵn tài khoản cá nhân cần gia hạn để xử lý nhanh qua chat",
+    "API usage được tính riêng nên không dùng gói này để thay thế billing API"
   ],
   "faqs": [
     {
       "question": "Gói này là gia hạn trên tài khoản của mình đúng không?",
-      "answer": "Đúng, đây là hình thức gia hạn chính chủ cho tài khoản cá nhân đang dùng."
+      "answer": "Đúng, đây là hình thức gia hạn chính chủ cho tài khoản cá nhân đang dùng ChatGPT Plus."
     }
   ],
-  "seoTitle": "ChatGPT Plus personal gia hạn chính chủ cho dev và sinh viên IT",
-  "seoDescription": "ChatGPT Plus personal gia hạn chính chủ, 1 tháng, phù hợp cho nhu cầu AI chat, coding và học tập."
+  "seoTitle": "ChatGPT Plus gia hạn chính chủ cho tài khoản cá nhân",
+  "seoDescription": "ChatGPT Plus gia hạn chính chủ theo gói trả phí chính thức của OpenAI, phù hợp cho nhu cầu AI chat, coding và nghiên cứu hằng ngày."
 }
