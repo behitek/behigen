@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import ZaloButton from '@components/contact/ZaloButton.astro';
 import FAQPreview from '@components/content/FAQPreview.astro';
 import PostCard from '@components/content/PostCard.astro';
 import GroupPricingSelector from '@components/store/GroupPricingSelector.astro';
@@ -9,7 +10,13 @@ import Layout from '@layouts/Layout.astro';
 import { buildContactHref } from '@utils/contact';
 
 const allProducts = await getCollection('products');
-const featuredProducts = allProducts.filter((entry) => entry.data.featured).slice(0, 4);
+const featuredProducts = allProducts
+  .filter((entry) => entry.data.featured)
+  .sort(
+    (a, b) =>
+      Number(b.data.featuredEmphasis ?? false) - Number(a.data.featuredEmphasis ?? false)
+  )
+  .slice(0, 4);
 const latestPosts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
@@ -23,39 +30,46 @@ const zaloHref = buildContactHref({
 ---
 
 <Layout
-  title="Behigen - Tài khoản AI giá tốt cho dev"
-  description="Tài khoản AI cho dev và sinh viên IT, có giá niêm yết rõ ràng, ưu đãi mua nhóm và liên hệ nhanh qua Zalo."
+  title="Behigen - Mua tài khoản AI với giá công khai và cách chốt rõ ràng"
+  description="Behigen do cùng người vận hành luyencode.net xây dựng, có giá niêm yết rõ ràng và hỗ trợ Google products theo hướng dùng trước rồi xác nhận thanh toán."
   canonical="/"
 >
   <section class="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(8,145,178,0.18),_transparent_35%),linear-gradient(135deg,_#ecfeff_0%,_#ffffff_55%,_#f8fafc_100%)] py-20">
     <div class="container">
       <p class="inline-flex rounded-full border border-cyan-200 bg-white px-4 py-2 text-sm font-semibold text-cyan-700">
-        Gửi tới độc giả từ luyencode.net
+        Cùng người vận hành luyencode.net
       </p>
       <h1 class="mt-6 max-w-5xl text-5xl font-black tracking-tight text-slate-950">
-        Tài khoản AI giá tốt cho dev và sinh viên IT
+        Mua tài khoản AI với giá công khai và quy trình chốt đơn rõ ràng
       </h1>
       <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
-        Xem giá niêm yết rõ ràng, chọn số lượng account để thấy ưu đãi mua nhóm, rồi nhắn Zalo để chốt nhanh.
+        Behigen do cùng người vận hành luyencode.net xây dựng. Với Google products, bạn có thể dùng trước, xác nhận hoạt động rồi mới thanh toán qua Zalo.
       </p>
       <div class="mt-8 flex flex-wrap gap-4">
         <a href={`${import.meta.env.BASE_URL}store`} class="rounded-full bg-cyan-600 px-6 py-3 font-semibold text-white">
           Xem cửa hàng
         </a>
-        <a href={`${import.meta.env.BASE_URL}tools/ai-package-quiz`} class="rounded-full border border-slate-300 px-6 py-3 font-semibold text-slate-900">
-          Xem gói phù hợp
+        <a href="#purchase-flow" class="rounded-full border border-slate-300 px-6 py-3 font-semibold text-slate-900">
+          Xem cách mua
         </a>
       </div>
       <div class="mt-8 flex flex-wrap gap-3 text-sm font-semibold">
-        <a
+        <ZaloButton
           href={zaloHref}
-          class="group inline-flex items-center gap-2 rounded-full border border-cyan-500 bg-cyan-600 px-4 py-2.5 text-white shadow-[0_18px_35px_-24px_rgba(8,145,178,0.95)] transition hover:-translate-y-0.5 hover:bg-cyan-500"
-        >
-          <span>Zalo</span>
-          <span class="rounded-full border border-white/30 bg-white/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-50">
-            Khuyên dùng
-          </span>
-        </a>
+          label="Nhắn Zalo để xác nhận gói và chốt đơn"
+          caption="Xác nhận loại account, cách bàn giao và thời điểm thanh toán"
+        />
+      </div>
+      <div class="mt-8 grid gap-3 md:grid-cols-3">
+        <div class="rounded-[1.5rem] border border-slate-200 bg-white/90 px-4 py-4 text-sm font-semibold text-slate-800">
+          Cùng người vận hành luyencode.net
+        </div>
+        <div class="rounded-[1.5rem] border border-emerald-200 bg-emerald-50 px-4 py-4 text-sm font-semibold text-emerald-900">
+          Google products: dùng trước, xác nhận rồi thanh toán
+        </div>
+        <div class="rounded-[1.5rem] border border-slate-200 bg-white/90 px-4 py-4 text-sm font-semibold text-slate-800">
+          Giá công khai, có bảo hành và cách bàn giao rõ ràng
+        </div>
       </div>
     </div>
   </section>
@@ -85,7 +99,7 @@ const zaloHref = buildContactHref({
         </div>
       </div>
       <div class="grid gap-6 lg:grid-cols-2">
-        {featuredProducts.map((product) => <ProductCard product={product.data} />)}
+        {featuredProducts.map((product) => <ProductCard product={product.data} surface="home" />)}
       </div>
     </div>
     <script>
@@ -93,31 +107,27 @@ const zaloHref = buildContactHref({
     </script>
   </section>
 
-  <section class="container py-16">
+  <section id="purchase-flow" class="container py-16">
     <div class="grid gap-6 lg:grid-cols-3">
+      <div class="rounded-[2rem] border border-emerald-200 bg-emerald-50 p-6">
+        <h2 class="text-2xl font-black text-slate-950">Google: dùng trước rồi thanh toán</h2>
+        <p class="mt-5 text-sm leading-6 text-slate-700">
+          Với các gói Google, bạn có thể kiểm tra account hoạt động đúng quyền lợi trước khi chốt thanh toán. Mục tiêu là giảm rủi ro cho người mua ngay từ bước đầu.
+        </p>
+      </div>
       <div class="rounded-[2rem] border border-slate-200 bg-white p-6">
-        <h2 class="text-2xl font-black text-slate-950">Vì sao mua ở đây</h2>
+        <h2 class="text-2xl font-black text-slate-950">Bàn giao rõ từng bước</h2>
         <ul class="mt-5 space-y-3 text-sm leading-6 text-slate-600">
-          <li>• Giá công khai, không cần hỏi inbox để biết mức giá.</li>
-          <li>• Hình thức tài khoản và bảo hành được ghi rõ trên từng gói.</li>
-          <li>• Mua nhóm được giảm trực tiếp trên từng account thay vì phải hỏi tay.</li>
+          <li>• Xác nhận đúng loại account: owner, member, gia hạn hay cấp mới.</li>
+          <li>• Nói rõ cách tham gia hoặc bàn giao trước khi chốt.</li>
+          <li>• Xác nhận thời gian xử lý và phạm vi bảo hành ngay trên Zalo.</li>
         </ul>
       </div>
       <div class="rounded-[2rem] border border-slate-200 bg-white p-6">
-        <h2 class="text-2xl font-black text-slate-950">Cách mua</h2>
-        <ol class="mt-5 space-y-3 text-sm leading-6 text-slate-600">
-          <li>1. Chọn gói theo nhu cầu và ngân sách.</li>
-          <li>2. Chọn số lượng account để xem mức giá mua nhóm.</li>
-          <li>3. Nhắn Zalo để được xác nhận tồn kho và chốt đơn.</li>
-        </ol>
-      </div>
-      <div class="rounded-[2rem] border border-slate-200 bg-white p-6">
-        <h2 class="text-2xl font-black text-slate-950">Tìm gói phù hợp</h2>
-        <ul class="mt-5 space-y-3 text-sm leading-6 text-slate-600">
-          <li>• Cần chat AI và hỗ trợ code hằng ngày: chọn ChatGPT Plus.</li>
-          <li>• Cần vừa AI vừa Google Drive/Photos: chọn Google AI Pro hoặc Premium.</li>
-          <li>• Cần tier Google cao nhất: chọn Google AI Ultra.</li>
-        </ul>
+        <h2 class="text-2xl font-black text-slate-950">Zalo là bước chốt đơn</h2>
+        <p class="mt-5 text-sm leading-6 text-slate-600">
+          Zalo dùng để xác nhận gói, tồn kho, tổng tiền theo số lượng account và hỗ trợ sau khi nhận. Đây là bước hoàn tất đơn, không phải một inbox mơ hồ để hỏi giá.
+        </p>
       </div>
     </div>
   </section>
@@ -167,18 +177,14 @@ const zaloHref = buildContactHref({
       <p class="text-sm font-semibold uppercase tracking-[0.14em] text-cyan-300">Chốt gói nhanh</p>
       <h2 class="mt-3 text-3xl font-black">Không chắc nên mua gói nào?</h2>
       <p class="mt-4 max-w-2xl text-base leading-7 text-slate-300">
-        Gửi nhu cầu, số lượng account và ngân sách qua Zalo để nhận tư vấn nhanh nhất cùng mức giảm giá phù hợp.
+        Gửi nhu cầu, số lượng account và ngân sách qua Zalo để xác nhận đúng gói, cách bàn giao và thời điểm thanh toán phù hợp. Với Google products, bạn có thể xác nhận hoạt động trước khi chốt tiền.
       </p>
       <div class="mt-8 flex flex-wrap gap-3 text-sm font-semibold">
-        <a
+        <ZaloButton
           href={zaloHref}
-          class="group inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-300 px-4 py-2.5 text-slate-950 shadow-[0_18px_36px_-26px_rgba(34,211,238,0.5)] transition hover:-translate-y-0.5 hover:bg-cyan-200"
-        >
-          <span>Zalo</span>
-          <span class="rounded-full border border-cyan-500/20 bg-white/70 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-700">
-            Khuyên dùng
-          </span>
-        </a>
+          label="Mở Zalo để xác nhận và chốt đơn"
+          caption="Chốt loại account, cách bàn giao và hỗ trợ sau khi nhận"
+        />
       </div>
     </div>
   </section>
