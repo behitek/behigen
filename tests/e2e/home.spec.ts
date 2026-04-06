@@ -22,23 +22,17 @@ test('homepage shows featured products, group pricing, and only Zalo contact', a
   await expect(page.getByRole('link', { name: /Telegram/i })).toHaveCount(0);
   await expect(page.getByRole('link', { name: /Messenger/i })).toHaveCount(0);
   await expect(page.getByText(/Mua 2 giảm 10%, mua 3-4 giảm 20%, mua 5\+ giảm 30%/i)).toBeVisible();
-  await expect(page.getByText(/Cùng người vận hành luyencode\.net/i).first()).toBeVisible();
-  await expect(page.getByText(/Google products: dùng trước, xác nhận rồi thanh toán/i)).toBeVisible();
+  await expect(page.getByText(/Đi kèm hướng dẫn sử dụng hiệu quả/i).first()).toBeVisible();
+  await expect(page.getByText(/Cùng người vận hành luyencode\.net/i)).toHaveCount(0);
+  await expect(page.getByText(/Dùng trước, xác nhận rồi thanh toán/i)).toBeVisible();
   await expect(
     page.locator('article').filter({ hasText: 'Google AI Pro (5TB)' }).getByText(/Best seller/i)
   ).toBeVisible();
   await expect(
     page
       .locator('article')
-      .filter({ hasText: 'Google AI Pro (5TB)' })
-      .getByText(/dùng trước, xác nhận hoạt động rồi thanh toán/i)
-      .first()
-  ).toBeVisible();
-  await expect(
-    page
-      .locator('article')
       .filter({ hasText: 'ChatGPT Plus' })
-      .getByText(/dùng trước, xác nhận hoạt động rồi thanh toán/i)
+      .getByText(/dùng trước, xác nhận/i)
   ).toHaveCount(0);
 });
 

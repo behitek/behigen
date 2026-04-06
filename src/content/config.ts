@@ -12,7 +12,6 @@ const productSchema = z.object({
   deliveryType: z.string(),
   featured: z.boolean().default(false),
   badge: z.string().optional(),
-  trustNote: z.string().optional(),
   featuredEmphasis: z.boolean().default(false),
   highlights: z.array(z.string()).min(2),
   details: z.array(z.string()).min(1),

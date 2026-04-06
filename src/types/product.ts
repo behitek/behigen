@@ -10,7 +10,6 @@ export interface ProductEntry {
   deliveryType: string;
   featured: boolean;
   badge?: string;
-  trustNote?: string;
   featuredEmphasis?: boolean;
   highlights: string[];
   details: string[];

@@ -15,14 +15,14 @@ const showHomeMerchandising = surface === 'home';
 
 <article
   class:list={[
-    'rounded-[2rem] border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg',
+    'relative rounded-[2rem] border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg',
     showHomeMerchandising && product.featuredEmphasis
       ? 'border-cyan-300 shadow-cyan-200/70 ring-1 ring-cyan-200'
       : 'border-slate-200 shadow-slate-200/60'
   ]}
 >
   {showHomeMerchandising && product.badge && (
-    <div class="mb-4 inline-flex rounded-full bg-cyan-600 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-white">
+    <div class="absolute right-4 top-4 rotate-6 rounded-full bg-cyan-600 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-white shadow-[0_16px_32px_-18px_rgba(8,145,178,0.95)]">
       {product.badge}
     </div>
   )}
@@ -54,13 +54,6 @@ const showHomeMerchandising = surface === 'home';
   <div class="mt-5">
     <GroupPricingSummary price={product.price} productName={product.name} mode="compact" />
   </div>
-
-  {showHomeMerchandising && product.trustNote && (
-    <div class="mt-4 rounded-[1.5rem] border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold leading-6 text-emerald-900">
-      {product.trustNote}
-    </div>
-  )}
-
   <div class="mt-5 grid gap-3 sm:grid-cols-2">
     <div class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
       <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
